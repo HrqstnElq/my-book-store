@@ -1,7 +1,6 @@
 import {Route, Switch, useRouteMatch} from "react-router-dom";
 import LeftBar from "../../components/public/LeftBar";
 import RightBar from "../../components/public/RightBar";
-import AdminPage from "../admin";
 import NotFoundPage from "../NotFoundPage";
 import BookDetailPage from "./BookDetailPage";
 import CategoryPage from "./CategoryPage";
@@ -17,7 +16,7 @@ export default function PublicPage() {
 		<div className="public-page flex justify-between">
 			<LeftBar />
 			<Switch>
-				<Route exact path={match.url} component={HomePage} />
+				<Route exact path={match.url} />
 				<Route exact path={`${match.url}/home`} component={HomePage} />
 				<Route exact path={`${match.url}/search`} component={SearchPage} />
 				<Route exact path={`${match.url}/highlight`} component={HighLightPage} />
