@@ -1,0 +1,7 @@
+:root {
+	--gray-green: rgb(55, 65, 81);
+}
+
+a.active {
+	background-color: var(--gray-green);
+}
