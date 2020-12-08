@@ -4,9 +4,11 @@ import ProductPage from "./ProductPage";
 import CustomerPage from "./CustomerPage";
 import HomePage from "./HomePage";
 import OrderPage from "./OrderPage";
+import SalesPage from "./SalesPage";
 
 export default function AdminPage() {
 	const match = useRouteMatch();
+
 	return (
 		<div>
 			<NavBar />
@@ -16,6 +18,7 @@ export default function AdminPage() {
 				<Route exact path={`${match.url}/product`} component={ProductPage} />
 				<Route exact path={`${match.url}/customer`} component={CustomerPage} />
 				<Route exact path={`${match.url}/order`} component={OrderPage} />
+				<Route exact path={`${match.url}/sales`} component={SalesPage} />
 			</Switch>
 		</div>
 	);

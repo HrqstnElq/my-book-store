@@ -1,9 +1,12 @@
 import React, {useState} from "react";
+import {useSelector} from "react-redux";
 import {NavLink, useRouteMatch} from "react-router-dom";
 import "./NavBar.css";
 const classNames = require("classnames");
 
 export default function NavBar() {
+	const userState = useSelector((state: any) => state.user);
+
 	const match = useRouteMatch();
 	const [active, setActive] = useState(false);
 
@@ -64,6 +67,11 @@ export default function NavBar() {
 								<NavLink to={`${match.url}/customer`} className="text-white px-3 py-2 rounded-md text-sm font-medium">
 									Khách hàng
 								</NavLink>
+								{userState.current.role === "admin" && (
+									<NavLink to={`${match.url}/sales`} className="text-white px-3 py-2 rounded-md text-sm font-medium">
+										Nhân viên
+									</NavLink>
+								)}
 							</div>
 						</div>
 					</div>
@@ -124,6 +132,13 @@ export default function NavBar() {
 						className="text-white hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">
 						Khách hàng
 					</NavLink>
+					{userState.current.role === "admin" && (
+						<NavLink
+							to={`${match.url}/sales`}
+							className="text-white hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">
+							Nhân viên
+						</NavLink>
+					)}
 				</div>
 			</div>
 		</nav>

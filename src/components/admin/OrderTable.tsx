@@ -2,8 +2,9 @@
 import {getAllOrderAdmin} from "api/orderApi";
 import {AxiosResponse} from "axios";
 import OrderDetail from "components/OrderDetail";
-import {useEffect, useRef, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {useHistory} from "react-router-dom";
+import LoadingBar from "react-top-loading-bar";
 
 const queryString = require("query-string");
 const classNames = require("classnames");
@@ -22,6 +23,7 @@ const spanClass = "lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs
 
 export default function OrderTable(props: any) {
 	const status = queryString.parse(useHistory().location.search).status;
+	const loadingRef = useRef<any>(null);
 
 	const [mode, setMode] = useState<{type: string; data: any}>({
 		type: "ALL",
@@ -52,8 +54,10 @@ export default function OrderTable(props: any) {
 	}, [filter]);
 
 	useEffect(() => {
+		loadingRef.current.staticStart();
 		getAllOrderAdmin().then((res: AxiosResponse) => {
 			if (res.data.success) setOrders(res.data.payload);
+			loadingRef.current.complete();
 		});
 	}, [mode]);
 
@@ -78,6 +82,7 @@ export default function OrderTable(props: any) {
 
 	return (
 		<div className="w-5/6 m-auto mt-4">
+			<LoadingBar color="#f11946" ref={loadingRef} waitingTime={500} />
 			<div className="action mb-4 flex justify-between flex-col lg:flex-row">
 				<div className="flex items-center justify-between">
 					<div onSubmit={onSearchesChange} className="relative mr-6 my-2 ">
