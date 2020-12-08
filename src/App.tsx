@@ -4,6 +4,7 @@ import AdminPage from "./pages/admin";
 import PublicPage from "./pages/public";
 import LoginPage from "./pages/LoginPage";
 import NotFoundPage from "./pages/NotFoundPage";
+require("dotenv").config();
 
 function App() {
 	return (

@@ -7,12 +7,13 @@ import {AxiosResponse} from "axios";
 export default function HomePage() {
 	const [data, setData] = useState({
 		user: 0,
-		product: 0,
 		order: 0,
+		newOrder: 0,
+		product: 0,
 	});
 
 	useEffect(() => {
-		getSummary().then((res: AxiosResponse) => {
+		getSummary({id: 1, abc: null}).then((res: AxiosResponse) => {
 			if (res.data.success) {
 				setData(res.data.payload);
 			}

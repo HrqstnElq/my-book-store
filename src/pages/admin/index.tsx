@@ -2,8 +2,8 @@ import {Route, Switch, useRouteMatch} from "react-router-dom";
 import NavBar from "components/admin/NavBar";
 import ProductPage from "./ProductPage";
 import CustomerPage from "./CustomerPage";
-import OrderPage from "pages/public/OrderPage";
 import HomePage from "./HomePage";
+import OrderPage from "./OrderPage";
 
 export default function AdminPage() {
 	const match = useRouteMatch();
@@ -15,7 +15,7 @@ export default function AdminPage() {
 				<Route exact path={`${match.url}/home`} component={HomePage} />
 				<Route exact path={`${match.url}/product`} component={ProductPage} />
 				<Route exact path={`${match.url}/customer`} component={CustomerPage} />
-				<Route exact path={`${match.url}/Order`} component={OrderPage} />
+				<Route exact path={`${match.url}/order`} component={OrderPage} />
 			</Switch>
 		</div>
 	);
