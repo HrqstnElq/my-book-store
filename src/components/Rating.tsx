@@ -3,8 +3,9 @@ export default function Rating(props: {star: number; color: string}) {
 	const arr = [1, 2, 3, 4, 5];
 	return (
 		<span className="flex items-center">
-			{arr.map((item) => (
+			{arr.map((item, index) => (
 				<svg
+					key={index}
 					fill={item <= star ? "currentColor" : "none"}
 					stroke="currentColor"
 					strokeLinecap="round"

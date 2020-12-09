@@ -42,8 +42,6 @@ export default function ProductPage() {
 		}
 	}, [bookAction]);
 
-	console.log(bookDetail);
-
 	useEffect(() => {
 		if (loadingRef.current) loadingRef.current.staticStart();
 		getBooksPaging(query).then((res) => {
@@ -66,12 +64,12 @@ export default function ProductPage() {
 			<div className="w-full">
 				<Pagination size={8} totalPage={totalPage} query={query} setQuery={setQuery} />
 				<div className="book-list">
-					{books.map((book) => (
-						<Book setBookAction={setBookAction} key={book.id} book={book} />
+					{books.map((book, index) => (
+						<Book setBookAction={setBookAction} key={index} book={book} />
 					))}
 				</div>
 			</div>
-			{bookAction.action !== "ALL" && (
+			{bookAction.action !== "ALL" && bookDetail && (
 				<div
 					onClick={exitDetails}
 					className="exit fixed w-screen h-screen bg-black bg-transparent bg-opacity-60 top-0 left-0 flex justify-center py-4 ">

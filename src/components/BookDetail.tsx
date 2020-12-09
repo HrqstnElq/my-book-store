@@ -24,7 +24,7 @@ export default function BookDetail(props: {setBookAction: Function; bookDetail: 
 				</div>
 				<div className="">
 					<h3 className="font-bold text-2xl inline-block">{bookDetail.name}</h3>
-					<span className="ml-4 uppercase">Số lượng còn lại : {bookDetail.available}</span>
+					<span className="ml-4 text-sm uppercase">Số lượng còn lại : {bookDetail.available}</span>
 					<h6 className="text-gray-500 text-base uppercase">Danh mục: {bookDetail.category}</h6>
 					<Rating star={4} color="red" />
 				</div>

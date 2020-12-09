@@ -30607,6 +30607,12 @@ video {
   --scrollbar-thumb: #831843;
 }
 
+/* @layer{
+    h1{
+        @apply: 
+    }
+} */
+
 @media (min-width: 640px) {
   .sm\:container {
     width: 100%;
