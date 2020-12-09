@@ -59,7 +59,16 @@ const userSlice = createSlice({
 		loading: false,
 		error: "",
 	},
-	reducers: {},
+	reducers: {
+		Logout: (state) => {
+			localStorage.removeItem("userInfo");
+			state.current = {
+				token: "",
+				role: "",
+				id: "",
+			};
+		},
+	},
 	extraReducers: {
 		[Login.pending as any]: (state, action) => {
 			state.loading = true;
@@ -78,3 +87,5 @@ const userSlice = createSlice({
 const {reducer: userReducer} = userSlice;
 
 export default userReducer;
+
+export const {Logout} = userSlice.actions;

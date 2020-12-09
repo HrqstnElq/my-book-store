@@ -57,7 +57,7 @@ export default function OrderTable(props: any) {
 		loadingRef.current.staticStart();
 		getAllOrderAdmin().then((res: AxiosResponse) => {
 			if (res.data.success) setOrders(res.data.payload);
-			loadingRef.current.complete();
+			if (loadingRef.current) loadingRef.current.complete();
 		});
 	}, [mode]);
 

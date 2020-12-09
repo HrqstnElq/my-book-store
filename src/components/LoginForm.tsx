@@ -1,9 +1,9 @@
+import {unwrapResult} from "@reduxjs/toolkit";
 import React, {useRef, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {Link, Redirect} from "react-router-dom";
-import {Login} from "store/userSlice";
 import LoadingBar from "react-top-loading-bar";
-import {unwrapResult} from "@reduxjs/toolkit";
+import {Login} from "store/userSlice";
 
 export default function LoginForm() {
 	const userState = useSelector((state: any) => state.user);
@@ -38,7 +38,7 @@ export default function LoginForm() {
 			} catch (err) {
 				console.log(err.error);
 				setErr(err.error);
-				loadingRef.current.complete();
+				if (loadingRef.current) loadingRef.current.complete();
 			}
 		}
 	};

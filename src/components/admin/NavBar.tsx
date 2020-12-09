@@ -1,11 +1,14 @@
 import React, {useState} from "react";
 import {useSelector} from "react-redux";
-import {NavLink, useRouteMatch} from "react-router-dom";
+import {Link, NavLink, useRouteMatch} from "react-router-dom";
 import "./NavBar.css";
 const classNames = require("classnames");
 
 export default function NavBar() {
 	const userState = useSelector((state: any) => state.user);
+
+	//show hidden  sub menu profile
+	const [profile, setProfile] = useState(false);
 
 	const match = useRouteMatch();
 	const [active, setActive] = useState(false);
@@ -97,15 +100,30 @@ export default function NavBar() {
 						<div className="ml-3 relative">
 							<div>
 								<button
+									onClick={() => setProfile(!profile)}
 									className="bg-gray-800 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
 									id="user-menu"
 									aria-haspopup="true">
-									<img
-										className="h-8 w-8 rounded-full"
-										src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-										alt=""
-									/>
+									<img className="h-8 w-8 rounded-full" src={userState.current.avatar} alt="" />
 								</button>
+							</div>
+							<div
+								className={classNames(
+									"origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5",
+									{hidden: !profile}
+								)}
+								role="menu"
+								aria-orientation="vertical"
+								aria-labelledby="user-menu">
+								<Link to="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">
+									Hồ sơ
+								</Link>
+								<Link to="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">
+									Cài đặt
+								</Link>
+								<Link to="/logout" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">
+									Đăng xuất
+								</Link>
 							</div>
 						</div>
 					</div>

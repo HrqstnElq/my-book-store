@@ -1,10 +1,11 @@
-import "./App.css";
+import LogoutPage from "pages/LogoutPage";
+import {useSelector} from "react-redux";
 import {Redirect, Route, Switch} from "react-router-dom";
+import "./App.css";
 import AdminPage from "./pages/admin";
-import PublicPage from "./pages/public";
 import LoginPage from "./pages/LoginPage";
 import NotFoundPage from "./pages/NotFoundPage";
-import {useSelector} from "react-redux";
+import PublicPage from "./pages/public";
 require("dotenv").config();
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
 				)}
 			</Route>
 			<Route exact path="/login" component={LoginPage}></Route>
+			<Route exact path="/logout" component={LogoutPage}></Route>
 			<Route path="*" component={NotFoundPage}></Route>
 		</Switch>
 	);

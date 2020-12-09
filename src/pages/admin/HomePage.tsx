@@ -20,7 +20,7 @@ export default function HomePage() {
 		getSummary({id: 1, abc: null}).then((res: AxiosResponse) => {
 			if (res.data.success) {
 				setData(res.data.payload);
-				loadingRef.current.complete();
+				if (loadingRef.current) loadingRef.current.complete();
 			}
 		});
 	}, []);
