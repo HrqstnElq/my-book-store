@@ -28,7 +28,7 @@ export default function LoginPage() {
 						</div>
 						<h3 className="mt-2 lg:mt-0 select-none">
 							<span onClick={changeFormHandler} className="hover:underline text-blue-300 ml-2 cursor-pointer">
-								{form}
+								{(form === "LOGIN" && "Đăng kí tài khoản") || "Đăng nhập "}
 							</span>
 						</h3>
 					</div>

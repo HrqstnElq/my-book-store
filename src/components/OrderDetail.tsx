@@ -58,7 +58,6 @@ export default function OrderDetail(props: {admin: boolean; mode: {type: string;
 			});
 		}
 	};
-	console.log(mode.data);
 
 	return (
 		<div className="w-4/5 h-full bg-gray-100 p-2 rounded-lg overflow-y-scroll scrollbar-thin scrollbar-thumb-gray-300 relative">
