@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import {getAllCategory} from "api/category";
+import {getAllCategory} from "api/categoryApi";
 import {FormEvent, useEffect, useRef, useState} from "react";
 
 export default function FilterBar(props: {query: any; setQuery: Function}) {
