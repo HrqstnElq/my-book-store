@@ -34,7 +34,8 @@
 	"scripts": {
 		"eject": "react-scripts eject",
 		"start": "npm run build:css && react-scripts start",
-		"build": "set NODE_ENV=production&&npm run build:css && react-scripts build",
+		"build": "react-scripts build",
+		"dev": "set NODE_ENV=production&&npm run build:css && react-scripts build",
 		"build:css": "postcss src/assets/styles/tailwind.css -o src/index.css "
 	},
 	"eslintConfig": {
