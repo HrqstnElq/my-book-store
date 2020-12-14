@@ -2,10 +2,12 @@
 import {getAllCategory} from "api/categoryApi";
 import {FormEvent, useEffect, useRef, useState} from "react";
 
-export default function FilterBar(props: {query: any; setQuery: Function}) {
-	const {query, setQuery} = props;
+export default function FilterBar(props: {query: any; setQuery: Function; categoryId: number}) {
+	const {query, setQuery, categoryId} = props;
 	const [categories, setCategory] = useState([]);
 	const searchRef = useRef<HTMLInputElement>(null);
+	const [optionState, setOptionState] = useState(categoryId);
+
 	const [dsc, setDsc] = useState(false);
 	const [isSuspend, setIsSuspend] = useState(false);
 
@@ -25,6 +27,10 @@ export default function FilterBar(props: {query: any; setQuery: Function}) {
 		});
 	}, [dsc, isSuspend]);
 
+	useEffect(() => {
+		setOptionState(categoryId);
+	}, [categoryId]);
+
 	const SubmitHandler = (e: FormEvent) => {
 		e.preventDefault();
 		if (searchRef.current) {
@@ -35,6 +41,7 @@ export default function FilterBar(props: {query: any; setQuery: Function}) {
 		}
 	};
 	const onCategoryChange = (e: any) => {
+		setOptionState(e.target.value);
 		setQuery({
 			...query,
 			categoryId: e.target.value,
@@ -67,7 +74,12 @@ export default function FilterBar(props: {query: any; setQuery: Function}) {
 				<label className="font-semibold" htmlFor="category">
 					Danh mục
 				</label>
-				<select onChange={onCategoryChange} name="category" className="w-52 mt-2 p-1 px-2 focus:outline-none rounded-md">
+				<select
+					value={optionState}
+					id="category"
+					onChange={onCategoryChange}
+					name="category"
+					className="w-52 mt-2 p-1 px-2 focus:outline-none rounded-md">
 					<option value="">Tất cả</option>
 					{categories.map((category: any, index: number) => (
 						<option key={index} value={category.id}>
@@ -82,7 +94,7 @@ export default function FilterBar(props: {query: any; setQuery: Function}) {
 					Số lượng hiển thị
 				</label>
 				<select onChange={onSizeChange} name="size" className="w-52 mt-2 p-1 px-2 focus:outline-none rounded-md">
-					<option value="2">2</option>
+					{/* <option value="2">2</option> */}
 					<option value="10">10</option>
 					<option value="20">20</option>
 					<option value="50">50</option>

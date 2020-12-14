@@ -2,15 +2,19 @@
 import {getBooksDetail, getBooksPaging} from "api/productApi";
 import Book from "components/admin/Book";
 import FilterBar from "components/admin/FilterBar";
-import BookDetail from "components/BookDetail";
+import BookDetail from "components/admin/BookDetail";
 import Pagination from "components/Pagination";
 import React, {useEffect, useRef, useState} from "react";
+import {useHistory} from "react-router-dom";
 import LoadingBar from "react-top-loading-bar";
 import "./ProductPage.css";
+import BookEdit from "components/admin/BookEdit";
+const queryString = require("query-string");
 
 export default function ProductPage() {
-	const loadingRef = useRef<any>(null);
+	const categoryId = queryString.parse(useHistory().location.search).category;
 
+	const loadingRef = useRef<any>(null);
 	const [totalPage, setTotalPage] = useState(0);
 	const [bookAction, setBookAction] = useState<{bookId: number; action: string}>({bookId: 0, action: "ALL"});
 
@@ -18,10 +22,10 @@ export default function ProductPage() {
 	const [bookDetail, setBookDetail] = useState();
 	const [query, setQuery] = useState<any>({
 		page: 1,
-		size: 2,
+		size: 10,
 		orderBy: "id",
 		dsc: false,
-		categoryId: null,
+		categoryId: categoryId,
 		search: null,
 		isSuspend: false,
 	});
@@ -29,6 +33,13 @@ export default function ProductPage() {
 	const exitDetails = (event: any) => {
 		if (event.target.classList.contains("exit")) setBookAction({bookId: 0, action: "ALL"});
 	};
+
+	useEffect(() => {
+		setQuery({
+			...query,
+			categoryId: categoryId,
+		});
+	}, [categoryId]);
 
 	useEffect(() => {
 		if (bookAction.action !== "ALL") {
@@ -59,7 +70,7 @@ export default function ProductPage() {
 		<div className="w-4/5 mt-4 m-auto flex flex-col md:flex-row">
 			<LoadingBar color="#f11946" ref={loadingRef} waitingTime={500} />
 			<div className="md:w-72 flex justify-center md:block">
-				<FilterBar query={query} setQuery={setQuery} />
+				<FilterBar categoryId={categoryId} query={query} setQuery={setQuery} />
 			</div>
 			<div className="w-full">
 				<Pagination size={8} totalPage={totalPage} query={query} setQuery={setQuery} />
@@ -69,11 +80,18 @@ export default function ProductPage() {
 					))}
 				</div>
 			</div>
-			{bookAction.action !== "ALL" && bookDetail && (
+			{bookAction.action === "DETAIL" && bookDetail && (
 				<div
 					onClick={exitDetails}
 					className="exit fixed w-screen h-screen bg-black bg-transparent bg-opacity-60 top-0 left-0 flex justify-center py-4 ">
-					<BookDetail bookDetail={bookDetail} setBookAction={setBookAction} />
+					<BookDetail bookAction={bookAction} bookDetail={bookDetail} setBookAction={setBookAction} />
+				</div>
+			)}
+			{bookAction.action === "EDIT" && bookDetail && (
+				<div
+					onClick={exitDetails}
+					className="exit fixed w-screen h-screen bg-black bg-transparent bg-opacity-60 top-0 left-0 flex justify-center py-4 ">
+					<BookEdit bookDetail={bookDetail} setBookAction={setBookAction} />
 				</div>
 			)}
 		</div>
