@@ -1,23 +1,60 @@
-import {useEffect, useState} from "react";
+import Slider from "react-slick";
 
-export default function ImageSlide() {
-	const images = [
-		"https://png.pngtree.com/thumb_back/fh260/background/20190223/ourmid/pngtree-pure-color-watercolor-graffiti-gradient-background-board-design-board-design-image_66713.jpg",
-		"https://img.freepik.com/free-photo/hand-painted-watercolor-background-with-sky-clouds-shape_24972-1095.jpg?size=626&ext=jpg",
-	];
-
-	const [current, setCurrent] = useState(0);
-
-	useEffect(() => {
-		const interval = window.setInterval(() => {
-			setCurrent((current + 1) % images.length);
-		}, 3000);
-		return () => window.clearInterval(interval);
-	}, [current, images.length]);
-
-	return (
-		<div className="image-slide overflow-hidden my-4 rounded-lg">
-			<img className="w-full h-48 object-cover bg-gray-800" src={images[current]} alt="" />
-		</div>
-	);
+export default function ImageSlider() {
+  var settings = {
+    dots: false,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 3,
+    slidesToScroll: 1,
+    slidesPerRow: 1,
+    variableWidth: true,
+    swipeToSlide: true,
+  };
+  return (
+    <Slider {...settings} slide="li">
+      <div className="bg-pink-700 rounded-2xl focus:outline-none focus:shadow-lg transform focus:scale-110">
+        <img
+          className="m-5"
+          src="http://res.cloudinary.com/tuanvu/image/upload/v1607998386/Image%20Uploader/hvzayglrpkyticou6bir.png"
+          alt=""
+        />
+      </div>
+      <div className="bg-pink-700 rounded-2xl focus:outline-none focus:shadow-lg transform focus:scale-110">
+        <img
+          className="m-5"
+          src="http://res.cloudinary.com/tuanvu/image/upload/v1607998386/Image%20Uploader/hvzayglrpkyticou6bir.png"
+          alt=""
+        />
+      </div>
+      <div className="bg-pink-700 rounded-2xl focus:outline-none focus:shadow-lg transform focus:scale-110">
+        <img
+          className="m-5"
+          src="http://res.cloudinary.com/tuanvu/image/upload/v1607998386/Image%20Uploader/hvzayglrpkyticou6bir.png"
+          alt=""
+        />
+      </div>
+      <div className="bg-pink-700 rounded-2xl focus:outline-none focus:shadow-lg transform focus:scale-110">
+        <img
+          className="m-5"
+          src="http://res.cloudinary.com/tuanvu/image/upload/v1607998386/Image%20Uploader/hvzayglrpkyticou6bir.png"
+          alt=""
+        />
+      </div>
+      <div className="bg-pink-700 rounded-2xl focus:outline-none focus:shadow-lg transform focus:scale-110">
+        <img
+          className="m-5"
+          src="http://res.cloudinary.com/tuanvu/image/upload/v1607998386/Image%20Uploader/hvzayglrpkyticou6bir.png"
+          alt=""
+        />
+      </div>
+      <div className="bg-pink-700 rounded-2xl focus:outline-none focus:shadow-lg transform focus:scale-110">
+        <img
+          className="m-5"
+          src="http://res.cloudinary.com/tuanvu/image/upload/v1607998386/Image%20Uploader/hvzayglrpkyticou6bir.png"
+          alt=""
+        />
+      </div>
+    </Slider>
+  );
 }
