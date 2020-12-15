@@ -90,12 +90,12 @@ export default function OrderTable(props: any) {
 							onChange={onSearchesChange}
 							ref={searchRef}
 							type="search"
-							className="bg-purple-white shadow rounded border-0 p-3 focus:outline-none"
+							className="bg-purple-white shadow rounded border-0 p-3 focus:outline-none bg-gray-100"
 							placeholder="Tìm kiếm . . . "
 						/>
 					</div>
 					<div className={classNames("relative lg:mr-3 my-2", {hidden: status})}>
-						<select className="bg-purple-white shadow rounded border-0 p-3 focus:outline-none" onChange={onHandleIsSuspend}>
+						<select className="bg-purple-white shadow rounded border-0 p-3 focus:outline-none bg-gray-100" onChange={onHandleIsSuspend}>
 							<option value="">Tất cả</option>
 							{statuses.map((status, index) => (
 								<option key={index} value={index}>
@@ -109,7 +109,7 @@ export default function OrderTable(props: any) {
 					<div className="mr-5">
 						<select
 							name="size"
-							className="bg-purple-white shadow rounded border-0 p-2 focus:outline-none"
+							className="bg-purple-white shadow rounded border-0 p-2 focus:outline-none bg-gray-100"
 							style={{width: "201px"}}
 							onChange={onSizeChange}>
 							{/* <option value="2">Hiển thị 2 đơn hàng</option> */}

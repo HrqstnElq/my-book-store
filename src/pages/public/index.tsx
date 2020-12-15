@@ -1,4 +1,4 @@
-import {Route, Switch, useRouteMatch} from "react-router-dom";
+import {Redirect, Route, Switch, useRouteMatch} from "react-router-dom";
 import LeftBar from "../../components/public/LeftBar";
 import RightBar from "../../components/public/RightBar";
 import NotFoundPage from "../NotFoundPage";
@@ -16,7 +16,9 @@ export default function PublicPage() {
 		<div className="public-page flex justify-between">
 			<LeftBar />
 			<Switch>
-				<Route exact path={match.url} />
+				<Route exact path={match.url}>
+					<Redirect to={`${match.url}/home`}></Redirect>
+				</Route>
 				<Route exact path={`${match.url}/home`} component={HomePage} />
 				<Route exact path={`${match.url}/search`} component={SearchPage} />
 				<Route exact path={`${match.url}/highlight`} component={HighLightPage} />

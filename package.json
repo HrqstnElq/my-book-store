@@ -33,10 +33,11 @@
 	},
 	"scripts": {
 		"eject": "react-scripts eject",
-		"start": "npm run build:css && react-scripts start",
+		"start": "react-scripts start",
 		"build": "react-scripts build",
-		"dev": "set NODE_ENV=production&&npm run build:css && react-scripts build",
-		"build:css": "postcss src/assets/styles/tailwind.css -o src/index.css "
+		"prod": "set NODE_ENV=production&&npm run build:css && react-scripts build",
+		"build:css": "postcss src/assets/styles/tailwind.css -o src/index.css ",
+		"watch:css": "postcss src/assets/styles/tailwind.css -o src/index.css -w"
 	},
 	"eslintConfig": {
 		"extends": [
@@ -57,6 +58,7 @@
 		]
 	},
 	"devDependencies": {
+		"postcss-cli": "^8.3.1",
 		"tailwind-scrollbar": "^1.0.1"
 	}
 }

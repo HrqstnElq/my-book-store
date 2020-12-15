@@ -14,7 +14,9 @@ function App() {
 	return (
 		<Switch>
 			<Route exact path="/">
-				{((userState.current.role === "admin" || userState.current.role === "sales") && <Redirect to="/admin"></Redirect>) || <PublicPage />}
+				{((userState.current.role === "admin" || userState.current.role === "sales") && <Redirect to="/admin"></Redirect>) || (
+					<Redirect to="/admin"></Redirect>
+				)}
 			</Route>
 			<Route path="/public">
 				{((userState.current.role === "admin" || userState.current.role === "sales") && <Redirect to="/admin"></Redirect>) || <PublicPage />}

@@ -67,7 +67,12 @@ export default function FilterBar(props: {query: any; setQuery: Function; catego
 				<label className="font-semibold" htmlFor="search">
 					Tìm kiếm
 				</label>
-				<input ref={searchRef} name="category" className="w-52 mt-2 p-1 px-2 focus:outline-none rounded-md" placeholder="Tìm kiếm . . ." />
+				<input
+					ref={searchRef}
+					name="category"
+					className="w-52 mt-2 p-1 px-2 focus:outline-none rounded-md bg-gray-100"
+					placeholder="Tìm kiếm . . ."
+				/>
 			</div>
 
 			<div className="mt-4 flex flex-col">
@@ -79,7 +84,7 @@ export default function FilterBar(props: {query: any; setQuery: Function; catego
 					id="category"
 					onChange={onCategoryChange}
 					name="category"
-					className="w-52 mt-2 p-1 px-2 focus:outline-none rounded-md">
+					className="w-52 mt-2 p-1 px-2 focus:outline-none rounded-md bg-gray-100">
 					<option value="">Tất cả</option>
 					{categories.map((category: any, index: number) => (
 						<option key={index} value={category.id}>
@@ -93,7 +98,7 @@ export default function FilterBar(props: {query: any; setQuery: Function; catego
 				<label className="font-semibold" htmlFor="size  ">
 					Số lượng hiển thị
 				</label>
-				<select onChange={onSizeChange} name="size" className="w-52 mt-2 p-1 px-2 focus:outline-none rounded-md">
+				<select onChange={onSizeChange} name="size" className="w-52 mt-2 p-1 px-2 focus:outline-none rounded-md bg-gray-100">
 					{/* <option value="2">2</option> */}
 					<option value="10">10</option>
 					<option value="20">20</option>
@@ -106,7 +111,7 @@ export default function FilterBar(props: {query: any; setQuery: Function; catego
 				<label className="font-semibold" htmlFor="sort">
 					Sắp xếp theo
 				</label>
-				<select onChange={onSortChange} name="sort" className="w-52 mt-2 p-1 px-2 focus:outline-none rounded-md">
+				<select onChange={onSortChange} name="sort" className="w-52 mt-2 p-1 px-2 focus:outline-none rounded-md bg-gray-100">
 					<option value="id">Số thứ tự</option>
 					<option value="name">Tên</option>
 					<option value="price">Giá</option>

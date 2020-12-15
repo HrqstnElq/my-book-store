@@ -3,7 +3,7 @@ export default function Book(props: {book: any; setBookAction: Function}) {
 	const VND = (price: number) => new Intl.NumberFormat("vi-VN", {style: "currency", currency: "VND"}).format(price);
 
 	return (
-		<div className="book bg-gray-200 hover:shadow-md cursor-pointer relative transition-all">
+		<div className="book bg-gray-100 hover:shadow-md cursor-pointer relative transition-all rounded-sm">
 			<div className="book-image">
 				<img
 					className="bg-blue-900 block m-auto"

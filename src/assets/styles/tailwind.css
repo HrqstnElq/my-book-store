@@ -7,3 +7,26 @@
         @apply: 
     }
 } */
+
+@layer base {
+	button,
+	input {
+		@apply focus:outline-none;
+	}
+	.grid-auto-min-w-80 {
+		grid-template-columns: repeat(auto-fit, min(20rem, 100%));
+	}
+}
+
+.pos-center {
+	top: 50%;
+	transform: translate(0, -50%);
+}
+
+.clearfix::after {
+	clear: both;
+	content: "";
+	display: block;
+	width: 0;
+	height: 0;
+}
