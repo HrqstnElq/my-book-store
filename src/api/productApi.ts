@@ -5,4 +5,25 @@ export const getBooksPaging = (query: any) =>
 		params: query,
 	});
 
-export const getBooksDetail = (bookId: number) => Axios.get(`/api/book/${bookId}`)
+export const getBooksDetail = (bookId: number) => Axios.get(`/api/book/${bookId}`);
+
+export const addBook = (book: any, token: string) =>
+	Axios.post("/api/admin/book", book, {
+		headers: {
+			Authorization: "Bearer " + token,
+		},
+	});
+
+export const editBook = (bookId: any, book: any, token: string) =>
+	Axios.post(`/api/admin/book/${bookId}`, book, {
+		headers: {
+			Authorization: "Bearer " + token,
+		},
+	});
+
+export const deleteBook = (bookId: any, token: string) =>
+	Axios.delete(`/api/admin/book?id=${bookId}`, {
+		headers: {
+			Authorization: "Bearer " + token,
+		},
+	});

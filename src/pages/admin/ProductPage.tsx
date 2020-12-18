@@ -9,6 +9,7 @@ import {useHistory} from "react-router-dom";
 import LoadingBar from "react-top-loading-bar";
 import "./ProductPage.css";
 import BookEdit from "components/admin/BookEdit";
+import ConfirmForm from "components/admin/ConfirmForm";
 const queryString = require("query-string");
 
 export default function ProductPage() {
@@ -64,7 +65,7 @@ export default function ProductPage() {
 			}
 			if (loadingRef.current) loadingRef.current.complete();
 		});
-	}, [query]);
+	}, [query, bookAction.action === "ALL"]);
 
 	return (
 		<div className="w-4/5 mt-4 m-auto flex flex-col md:flex-row">
@@ -72,6 +73,7 @@ export default function ProductPage() {
 			<div className="md:w-72 flex justify-center md:block">
 				<FilterBar categoryId={categoryId} query={query} setQuery={setQuery} />
 			</div>
+
 			<div className="w-full">
 				<Pagination size={8} totalPage={totalPage} query={query} setQuery={setQuery} />
 				<div className="book-list">
@@ -91,8 +93,26 @@ export default function ProductPage() {
 				<div
 					onClick={exitDetails}
 					className="exit fixed w-screen h-screen bg-black bg-transparent bg-opacity-60 top-0 left-0 flex justify-center py-4 ">
-					<BookEdit bookDetail={bookDetail} setBookAction={setBookAction} />
+					<BookEdit bookAction={bookAction} bookDetail={bookDetail} setBookAction={setBookAction} />
 				</div>
+			)}
+
+			{bookAction.action === "ADD" && (
+				<div
+					onClick={exitDetails}
+					className="exit fixed w-screen h-screen bg-black bg-transparent bg-opacity-60 top-0 left-0 flex justify-center py-4 ">
+					<BookEdit bookAction={bookAction} bookDetail={{}} setBookAction={setBookAction} />
+				</div>
+			)}
+
+			{bookAction.action === "DELETE" && <ConfirmForm bookAction={bookAction} setBookAction={setBookAction} />}
+
+			{bookAction.action === "ALL" && (
+				<button
+					onClick={() => setBookAction({...bookAction, action: "ADD"})}
+					className="fixed bottom-8 right-8 w-12 h-12 bg-purple-700 rounded-full shadow-md cursor-pointer hover:bg-purple-800">
+					<i className="fas fa-plus font-bold text-white"></i>
+				</button>
 			)}
 		</div>
 	);
