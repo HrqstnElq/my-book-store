@@ -30217,6 +30217,15 @@ button:focus, input:focus {
   height: 0;
 }
 
+.slick-arrow::before {
+  --tw-text-opacity: 1;
+  color: rgba(239, 68, 68, var(--tw-text-opacity));
+}
+
+.slick-slide > div {
+  margin: 1.25rem;
+}
+
 @media (min-width: 640px) {
   .sm\:container {
     width: 100%;
