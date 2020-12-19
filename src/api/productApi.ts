@@ -5,6 +5,14 @@ export const getBooksPaging = (query: any) =>
 		params: query,
 	});
 
+export const getTopBooks = (option: string, page: number, size: number) =>
+	Axios.get(`/api/admin/book/top/${option}`, {
+		params: {
+			page: page,
+			size: size,
+		},
+	});
+
 export const getBooksDetail = (bookId: number) => Axios.get(`/api/book/${bookId}`);
 
 export const addBook = (book: any, token: string) =>

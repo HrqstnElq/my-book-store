@@ -1,7 +1,6 @@
+import {useEffect} from "react";
+
 export default function OrderPage() {
-    return (
-        <div>
-            OrderPage
-        </div>
-    )
+	useEffect(() => window.scrollTo(0, 0), []);
+	return <div>OrderPage</div>;
 }
