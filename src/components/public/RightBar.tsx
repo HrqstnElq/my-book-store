@@ -12,7 +12,7 @@ export default function RightBar() {
 		getTopBooks("week", 1, 3).then((res) => {
 			if (res.data.success) setBooks(res.data.payload.books);
 		});
-	});
+	}, []);
 
 	return (
 		<div className="right-bar pr-4 pt-4 sticky hidden xl:block top-0 w-80 h-screen">
