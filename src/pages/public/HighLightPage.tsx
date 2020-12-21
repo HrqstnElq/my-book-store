@@ -3,13 +3,16 @@ import Pagination from "components/Pagination";
 import BannerSlide from "components/public/BannerSlide";
 import GridBook from "components/public/GridBook";
 import SearchBar from "components/public/SearchBar";
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
+import LoadingBar from "react-top-loading-bar";
 
 const classNames = require("classnames");
 
 export default function HighLightPage() {
 	const [paging, setPaging] = useState({totalPage: 0, books: []});
 	const [option, setOption] = useState("week");
+	const loadingRef = useRef<any>(null);
+
 	const [query, setQuery] = useState({
 		page: 1,
 		size: 20,
@@ -17,13 +20,16 @@ export default function HighLightPage() {
 
 	useEffect(() => window.scrollTo(0, 0), []);
 	useEffect(() => {
+		loadingRef?.current?.staticStart();
 		getTopBooks(option, query.page, query.size).then((res) => {
 			if (res.data.success) setPaging(res.data.payload);
 			else setPaging({totalPage: 0, books: []});
+			loadingRef?.current?.complete();
 		});
 	}, [query, option]);
 	return (
 		<div className="px-10 lg:px-20 xl:px-32 mt-5 flex-1 max-w-screen-lg">
+			<LoadingBar color="#f11946" ref={loadingRef} waitingTime={500} />
 			<SearchBar />
 			<BannerSlide />
 			<section className="w-full mb-5">

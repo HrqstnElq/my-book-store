@@ -5,6 +5,7 @@ import LeftBar from "../../components/public/LeftBar";
 import RightBar from "../../components/public/RightBar";
 import NotFoundPage from "../NotFoundPage";
 import BookDetailPage from "./BookDetailPage";
+import CartPage from "./CartPage";
 import CategoryPage from "./CategoryPage";
 import HighLightPage from "./HighLightPage";
 import HomePage from "./HomePage";
@@ -35,6 +36,7 @@ export default function PublicPage() {
 					<Route exact path={`${match.url}/highlight`} component={HighLightPage} />
 					<Route exact path={`${match.url}/book/:id`} component={BookDetailPage} />
 					<Route exact path={`${match.url}/category`} component={CategoryPage} />
+					<Route exact path={`${match.url}/cart`} component={CartPage} />
 					<Route exact path={`${match.url}/order`} component={OrderPage} />
 					<Route path={"*"} component={NotFoundPage} />
 				</Switch>

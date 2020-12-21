@@ -14,10 +14,10 @@ export default function LoginPage() {
 		<div>
 			<div className="container flex-row flex">
 				<section className="left relative w-2/5 p-20 min-h-screen hidden lg:block">
-					<div className="logo text-3xl font-bold hover:text-pink-500">
-						<Link to="/public">Book Store</Link>
-					</div>
-					<h1>xxx</h1>
+					<button onClick={() => (window.location.href = "/")} className="logo text-3xl font-bold hover:text-pink-500">
+						Home
+					</button>
+					<h1>Nhà sách An Nguyên</h1>
 					<div className="left--image"></div>
 				</section>
 

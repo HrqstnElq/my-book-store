@@ -3,6 +3,7 @@ import {getAllOrderAdmin} from "api/orderApi";
 import {AxiosResponse} from "axios";
 import OrderDetail from "components/OrderDetail";
 import React, {useEffect, useRef, useState} from "react";
+import {useSelector} from "react-redux";
 import {useHistory} from "react-router-dom";
 import LoadingBar from "react-top-loading-bar";
 
@@ -22,9 +23,9 @@ const thClass = "p-1 font-bold uppercase bg-gray-200 text-gray-600 border border
 const spanClass = "lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase";
 
 export default function OrderTable(props: any) {
+	const user = useSelector((state: any) => state.user);
 	const status = queryString.parse(useHistory().location.search).status;
 	const loadingRef = useRef<any>(null);
-
 	const [mode, setMode] = useState<{type: string; data: any}>({
 		type: "ALL",
 		data: null,
@@ -55,7 +56,7 @@ export default function OrderTable(props: any) {
 
 	useEffect(() => {
 		loadingRef.current.staticStart();
-		getAllOrderAdmin().then((res: AxiosResponse) => {
+		getAllOrderAdmin(user?.current?.token).then((res: AxiosResponse) => {
 			if (res.data.success) setOrders(res.data.payload);
 			if (loadingRef.current) loadingRef.current.complete();
 		});

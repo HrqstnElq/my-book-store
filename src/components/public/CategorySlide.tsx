@@ -7,13 +7,13 @@ export default function CategorySlide(props: {categories: any; current: any; set
 	const {categories, current, setCurrent} = props;
 
 	const images = [
-		{img: "/images/category/1.jpg", color: "yellow-500"},
-		{img: "/images/category/2.jpg", color: "green-400"},
-		{img: "/images/category/3.jpg", color: "purple-400"},
-		{img: "/images/category/4.jpg", color: "yellow-400"},
-		{img: "/images/category/5.jpg", color: "blue-800"},
-		{img: "/images/category/6.jpg", color: "gray-400"},
-		{img: "/images/category/7.jpg", color: "red-400"},
+		{img: "/images/category/1.png", color: "yellow-500"},
+		{img: "/images/category/2.png", color: "green-400"},
+		{img: "/images/category/3.png", color: "purple-400"},
+		{img: "/images/category/4.png", color: "yellow-400"},
+		{img: "/images/category/5.png", color: "blue-800"},
+		{img: "/images/category/6.png", color: "gray-400"},
+		{img: "/images/category/7.png", color: "red-400"},
 	];
 
 	var settings = {

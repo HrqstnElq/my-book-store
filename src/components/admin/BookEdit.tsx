@@ -40,7 +40,6 @@ export default function BookEdit(props: {bookAction: any; setBookAction: Functio
 			editBook(bookAction.bookId, book, userState.current.token).then((res) => {
 				if (loadingRef.current) loadingRef.current.complete();
 				if (res.data.success) {
-					alert("Cập nhật thành công");
 					setBookAction({...bookAction, action: "ALL"});
 				} else {
 					alert("không thay đổi");
@@ -50,7 +49,6 @@ export default function BookEdit(props: {bookAction: any; setBookAction: Functio
 			addBook(book, userState.current.token).then((res) => {
 				if (loadingRef.current) loadingRef.current.complete();
 				if (res.data.success) {
-					alert("Thêm thành công");
 					setBookAction({...bookAction, action: "ALL"});
 				} else {
 					alert("Thêm không thành công");

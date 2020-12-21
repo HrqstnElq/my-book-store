@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import {getOrderDetails, Order, updateOrder} from "api/orderApi";
 import {useEffect, useState} from "react";
+import {useSelector} from "react-redux";
 
 const statuses = ["Duyệt", "Đang giao", "Đã giao", "Hoàn trả"];
 const buttons = [
@@ -16,10 +17,10 @@ const spanClass = "lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs
 export default function OrderDetail(props: {admin: boolean; mode: {type: string; data: any}; setMode: Function}) {
 	const {admin, mode, setMode} = props;
 	const [orderDetail, setOrderDetail] = useState([]);
+	const user = useSelector((state: any) => state.user);
 
 	useEffect(() => {
-		console.log("get data");
-		getOrderDetails(mode.data.id).then((res) => {
+		getOrderDetails(mode.data.id, user?.current?.token).then((res) => {
 			if (res.data.success) setOrderDetail(res.data.payload);
 		});
 	}, []);
@@ -53,7 +54,7 @@ export default function OrderDetail(props: {admin: boolean; mode: {type: string;
 				orderStatus: nextOrderStatus,
 			};
 
-			updateOrder(mode.data.id, orderPost).then((res) => {
+			updateOrder(mode.data.id, orderPost, user?.current.token).then((res) => {
 				console.log(res);
 			});
 		}

@@ -1,7 +1,11 @@
 import {getBooksDetail} from "api/productApi";
 import SearchBar from "components/public/SearchBar";
 import Rating from "components/Rating";
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
+import {useDispatch} from "react-redux";
+import {AddItem} from "store/cartSlice";
+import LoadingBar from "react-top-loading-bar";
+
 import "./BookDetailPage.css";
 
 const VND = (price: number) => new Intl.NumberFormat("vi-VN", {style: "currency", currency: "VND"}).format(price);
@@ -9,22 +13,32 @@ const classNames = require("classnames");
 
 export default function BookDetailPage(props: any) {
 	const [book, setBook] = useState<any>();
+	const loadingRef = useRef<any>(null);
 	const [quantity, setQuantity] = useState(1);
 	const [tab, setTab] = useState("DESC");
+	const dispatch = useDispatch();
 
-	console.log(props);
-
-	// useEffect(() => window.scrollTo(0, 0), []);
+	const [starAvg, setStarAvg] = useState(5);
+	useEffect(() => window.scrollTo(0, 0), []);
 
 	useEffect(() => {
+		if (book?.comments.length > 0) {
+			setStarAvg(Math.ceil(book?.comments.reduce((x: any, y: any) => x.rating + y.rating) / book?.comments.length));
+		}
+	}, [book]);
+
+	useEffect(() => {
+		loadingRef?.current?.staticStart();
 		getBooksDetail(props.match.params.id).then((res) => {
 			if (res.data.success) setBook(res.data.payload.book);
 			else setBook(null);
+			loadingRef?.current?.complete();
 		});
 	}, [props.match.params.id]);
 
 	return (
 		<div className="px-10 lg:px-20 xl:px-32 mt-5 flex-1 max-w-screen-lg">
+			<LoadingBar color="#f11946" ref={loadingRef} waitingTime={500} />
 			<SearchBar />
 			{(book && (
 				<>
@@ -36,7 +50,7 @@ export default function BookDetailPage(props: any) {
 									<span className="font-bold text-3xl uppercase">{book.name}</span>
 									<span className="text-gray-600 text-sm uppercase">{book.author}</span>
 								</div>
-								<Rating star={props.location.state.starAvg} count={props.location.state.rating_count} color="red" />
+								<Rating star={starAvg} count={book.comments.length} color="red" />
 								<div className="space-x-2">
 									<span className="font-bold">Số lượng còn lại:</span>
 									<span>{book.available}</span>
@@ -75,7 +89,22 @@ export default function BookDetailPage(props: any) {
 									</div>
 								</div>
 								<div className="space-x-4">
-									<button className="px-4 py-2 bg-gray-700 hover:bg-gray-800 rounded-md text-white font-medium">
+									<button
+										onClick={() => {
+											loadingRef?.current?.staticStart();
+											dispatch(
+												AddItem({
+													bookId: book.id,
+													bookName: book.name,
+													bookImage: book.image,
+													price: book.price,
+													sale: book.sale,
+													quantity: quantity,
+												})
+											);
+											loadingRef?.current?.complete();
+										}}
+										className="px-4 py-2 bg-gray-700 hover:bg-gray-800 rounded-md text-white font-medium">
 										Thêm vào giỏ
 									</button>
 									<button className="px-4 py-2 bg-indigo-500 hover:bg-indigo-600 rounded-md text-white font-medium">
@@ -99,7 +128,7 @@ export default function BookDetailPage(props: any) {
 								className={classNames("font-bold transition-all duration-300 py-4 top-1 relative border-b-4", {
 									"border-indigo-500": tab === "VOTE",
 								})}>
-								Đánh giá (0)
+								Đánh giá ({book.comments.length})
 							</button>
 						</div>
 						<div className="my-2 p-4 max-h-96 h-96 overflow-y-scroll">

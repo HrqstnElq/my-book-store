@@ -8,6 +8,7 @@ export default function LogoutPage() {
 
 	useEffect(() => {
 		dispatch(Logout());
+		window.location.href = "/login";
 	}, [dispatch]);
 
 	return <Redirect to="/login" />;

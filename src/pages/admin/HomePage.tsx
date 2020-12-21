@@ -16,7 +16,7 @@ export default function HomePage() {
 	});
 
 	useEffect(() => {
-		loadingRef.current.staticStart();
+		loadingRef?.current?.staticStart();
 		getSummary({id: 1, abc: null}).then((res: AxiosResponse) => {
 			if (res.data.success) {
 				setData(res.data.payload);

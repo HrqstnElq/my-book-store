@@ -9,6 +9,23 @@ export interface Order {
 	orderStatus?: number;
 }
 
-export const getAllOrderAdmin = () => Axios.get("/api/admin/order/all");
-export const getOrderDetails = (orderId: number) => Axios.get(`/api/order/detail/${orderId}`);
-export const updateOrder = (orderId: number, order: Order) => Axios.post(`/api/order/update/${orderId}`, order);
+export const getAllOrderAdmin = (token: string) =>
+	Axios.get("/api/admin/order/all", {
+		headers: {
+			Authorization: "Bearer " + token,
+		},
+	});
+
+export const getOrderDetails = (orderId: number, token: string) =>
+	Axios.get(`/api/order/detail/${orderId}`, {
+		headers: {
+			Authorization: "Bearer " + token,
+		},
+	});
+
+export const updateOrder = (orderId: number, order: Order, token: string) =>
+	Axios.post(`/api/order/admin/${orderId}`, order, {
+		headers: {
+			Authorization: "Bearer " + token,
+		},
+	});

@@ -62,6 +62,7 @@ const userSlice = createSlice({
 	reducers: {
 		Logout: (state) => {
 			localStorage.removeItem("userInfo");
+			localStorage.removeItem("cart");
 			state.current = {
 				token: "",
 				role: "",
