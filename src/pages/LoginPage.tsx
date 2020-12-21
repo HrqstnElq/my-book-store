@@ -24,7 +24,7 @@ export default function LoginPage() {
 				<section className="right flex justify-center items-center w-screen lg:w-3/5 h-screen">
 					<div className="fixed right-2 top-1 flex lg:block justify-around w-11/12 lg:w-auto">
 						<div className="logo text-3xl font-bold lg:hidden hover:text-pink-500">
-							<Link to="/public">Music</Link>
+							<Link to="/public">Home</Link>
 						</div>
 						<h3 className="mt-2 lg:mt-0 select-none">
 							<span onClick={changeFormHandler} className="hover:underline text-blue-300 ml-2 cursor-pointer">

@@ -18,7 +18,7 @@ export default function HomePage() {
 
 	useEffect(() => window.scrollTo(0, 0), []);
 	useEffect(() => {
-		loadingRef?.current.staticStart();
+		loadingRef?.current?.staticStart();
 		getAllCategory().then((res) => {
 			if (res.data.success) setCategories(res.data.payload.categories);
 			loadingRef?.current?.complete();
@@ -38,7 +38,7 @@ export default function HomePage() {
 		getBooksPaging({orderBy: "MonthScore", dsc: true, categoryId: currentCategory}).then((res) => {
 			if (res.data.success) setBooks(res.data.payload.books);
 			else setBooks([]);
-			loadingRef?.current.complete();
+			loadingRef?.current?.complete();
 		});
 	}, [currentCategory]);
 

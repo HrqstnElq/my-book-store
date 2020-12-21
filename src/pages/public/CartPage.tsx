@@ -3,7 +3,8 @@ import {useDispatch, useSelector} from "react-redux";
 import {Link} from "react-router-dom";
 import {Decrement, Increment, RemoveItem} from "store/cartSlice";
 import LoadingBar from "react-top-loading-bar";
-import {syncCart} from "api/cartApi";
+import {removeCart, syncCart} from "api/cartApi";
+import OrderForm from "components/public/OrderForm";
 
 const VND = (price: number) => new Intl.NumberFormat("vi-VN", {style: "currency", currency: "VND"}).format(price);
 
@@ -11,15 +12,14 @@ export default function CartPage() {
 	const dispatch = useDispatch();
 	const cart = useSelector((state: any) => state.cart);
 	const user = useSelector((state: any) => state.user);
-
 	const loadingRef = useRef<any>(null);
-
 	const [totalPrice, setTotalPrice] = useState(0);
+	const [isOrder, setIsOrder] = useState(false);
 
 	useEffect(() => {
 		loadingRef?.current?.staticStart();
 		let totalPrice = 0;
-		cart.forEach((book: any) => {
+		cart?.forEach((book: any) => {
 			totalPrice += book.price * (1 - book.sale) * book.quantity;
 		});
 		setTotalPrice(totalPrice);
@@ -35,8 +35,16 @@ export default function CartPage() {
 		}
 	}, [cart, user]);
 
+	const removeItemHandler = (bookId: number) => {
+		dispatch(RemoveItem({bookId: bookId}));
+		if (user.current.token) {
+			removeCart(user.current.token, bookId);
+		}
+	};
+
 	return (
 		<div className="px-10 lg:px-20 xl:px-32 mt-5 flex-1 max-w-screen-lg">
+			{isOrder && <OrderForm books={cart} setMode={setIsOrder} />}
 			<LoadingBar color="#f11946" ref={loadingRef} waitingTime={500} />
 			{(cart.length > 0 && (
 				<>
@@ -73,9 +81,8 @@ export default function CartPage() {
 							<div className="w-1/5 flex justify-between relative">
 								<p>{VND(book.price * (1 - book.sale) * book.quantity)}</p>
 								<button
-									onClick={() => dispatch(RemoveItem({bookId: book.bookId}))}
-									className="w-8 h-8 rounded-full
-						 hover:bg-red-100 text-red-400 relative -top-1">
+									onClick={() => removeItemHandler(book.bookId)}
+									className="w-8 h-8 rounded-full hover:bg-red-100 text-red-400 relative -top-1">
 									<i className="fal fa-times-circle"></i>
 								</button>
 							</div>
@@ -87,7 +94,11 @@ export default function CartPage() {
 							<label className="">{VND(totalPrice)}</label>
 						</div>
 						{(user.current.id && (
-							<button className="w-full text-white font-medium py-1 rounded-sm bg-blue-600 hover:bg-blue-700">Đặt hàng</button>
+							<button
+								onClick={() => setIsOrder(true)}
+								className="w-full text-white font-medium py-1 rounded-sm bg-blue-600 hover:bg-blue-700">
+								Đặt hàng
+							</button>
 						)) || (
 							<div className="w-full flex items-center flex-col space-y-2 rounded-md">
 								<h3 className="font-bold text-md uppercase">Vui lòng đăng nhập để đặt hàng</h3>

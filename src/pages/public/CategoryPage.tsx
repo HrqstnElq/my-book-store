@@ -38,7 +38,7 @@ export default function CategoryPage() {
 	}, [query]);
 
 	return (
-		<div className="px-10 lg:px-20 xl:px-32 mt-5 flex-1 max-w-screen-lg">
+		<div className="px-10 lg:px-20 xl:px-32 mt-5 flex-1 w-full max-w-screen-lg">
 			<LoadingBar color="#f11946" ref={loadingRef} waitingTime={500} />
 			<SearchBar />
 			<section className="w-full">

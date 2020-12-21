@@ -20,7 +20,7 @@ export default function CategorySlide(props: {categories: any; current: any; set
 		dots: false,
 		infinite: true,
 		speed: 500,
-		slidesToShow: 3,
+		slidesToShow: 1,
 		slidesToScroll: 1,
 		slidesPerRow: 1,
 		variableWidth: true,

@@ -1,10 +1,13 @@
 import React, {useState} from "react";
+import {useSelector} from "react-redux";
 import {Link, NavLink} from "react-router-dom";
 import "./NavBar.css";
 const classNames = require("classnames");
 
 export default function NavBar() {
 	const [active, setActive] = useState(false);
+
+	const user = useSelector((state: any) => state.user);
 
 	return (
 		<>
@@ -33,12 +36,18 @@ export default function NavBar() {
 
 					<div className="ml-3 relative">
 						<div>
-							<img
-								onClick={() => setActive(!active)}
-								className="h-10 w-10 rounded-full object-cover cursor-pointer"
-								src="https://i.pinimg.com/originals/bb/59/c9/bb59c90c3062e5cced0be5bcdb3f8d6c.jpg"
-								alt=""
-							/>
+							{(user.current.id && (
+								<img
+									onClick={() => setActive(!active)}
+									className="h-10 w-10 rounded-full object-cover cursor-pointer select-none"
+									src="https://i.pinimg.com/originals/bb/59/c9/bb59c90c3062e5cced0be5bcdb3f8d6c.jpg"
+									alt=""
+								/>
+							)) || (
+								<button onClick={() => setActive(!active)} className="h-10 w-5">
+									<i className="far fa-user"></i>
+								</button>
+							)}
 						</div>
 						<div
 							className={classNames(
@@ -48,18 +57,37 @@ export default function NavBar() {
 							role="menu"
 							aria-orientation="vertical"
 							aria-labelledby="user-menu">
-							<Link to="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">
+							<Link to="/public/cart" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">
 								Giỏ hàng
 							</Link>
-							<Link to="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">
-								Thông báo
-							</Link>
-							<Link to="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">
-								Hồ sơ
-							</Link>
-							<Link to="/logout" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">
-								Đăng xuất
-							</Link>
+							{(user.token && (
+								<>
+									<Link to="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">
+										Thông báo
+									</Link>
+									<Link to="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">
+										Hồ sơ
+									</Link>
+									<Link to="/logout" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">
+										Đăng xuất
+									</Link>
+								</>
+							)) || (
+								<>
+									<button
+										onClick={() => (window.location.href = "/login")}
+										className="block px-4 py-2 w-full text-left text-sm text-gray-700 hover:bg-gray-100"
+										role="menuitem">
+										Đăng nhập
+									</button>
+									<button
+										onClick={() => (window.location.href = "/login?register=true")}
+										className="block px-4 py-2 w-full text-left text-sm text-gray-700 hover:bg-gray-100"
+										role="menuitem">
+										Đăng kí
+									</button>
+								</>
+							)}
 						</div>
 					</div>
 				</div>

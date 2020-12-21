@@ -85,7 +85,9 @@ export default function RightBar() {
 							className="px-3 py-2 bg-gray-700 hover:bg-gray-800 rounded-md text-white">
 							Đăng nhập
 						</button>
-						<button onClick={ClickHandler} className="px-3 py-2 bg-blue-700 hover:bg-blue-800 rounded-md text-white">
+						<button
+							onClick={() => (window.location.href = "/login?register=true")}
+							className="px-3 py-2 bg-blue-700 hover:bg-blue-800 rounded-md text-white">
 							Đăng kí
 						</button>
 					</div>

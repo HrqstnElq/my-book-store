@@ -1,31 +1,44 @@
 import {getBooksDetail} from "api/productApi";
+import {PostVote} from "api/RatingApi";
+import Message from "components/public/Message";
 import SearchBar from "components/public/SearchBar";
 import Rating from "components/Rating";
 import React, {useEffect, useRef, useState} from "react";
-import {useDispatch} from "react-redux";
-import {AddItem} from "store/cartSlice";
+import {useDispatch, useSelector} from "react-redux";
 import LoadingBar from "react-top-loading-bar";
-
+import {AddItem} from "store/cartSlice";
 import "./BookDetailPage.css";
 
 const VND = (price: number) => new Intl.NumberFormat("vi-VN", {style: "currency", currency: "VND"}).format(price);
 const classNames = require("classnames");
 
 export default function BookDetailPage(props: any) {
-	const [book, setBook] = useState<any>();
 	const loadingRef = useRef<any>(null);
-	const [quantity, setQuantity] = useState(1);
-	const [tab, setTab] = useState("DESC");
-	const dispatch = useDispatch();
+	const commentRef = useRef<HTMLTextAreaElement>(null);
 
+	const [book, setBook] = useState<any>();
+	const [star, setStar] = useState<number>(5);
+	const [quantity, setQuantity] = useState(1);
 	const [starAvg, setStarAvg] = useState(5);
-	useEffect(() => window.scrollTo(0, 0), []);
+	const [tab, setTab] = useState("DESC");
+	const [mode, setMode] = useState("DEFAULT");
+
+	const [message, setMessage] = useState<any>();
+
+	const user = useSelector((state: any) => state.user);
+	const dispatch = useDispatch();
+	// useEffect(() => window.scrollTo(0, 0), []);
 
 	useEffect(() => {
 		if (book?.comments.length > 0) {
-			setStarAvg(Math.ceil(book?.comments.reduce((x: any, y: any) => x.rating + y.rating) / book?.comments.length));
+			let totalStar = 0;
+			book?.comments.forEach((comment: any) => {
+				totalStar += comment.rating;
+			});
+
+			setStarAvg(Math.ceil(totalStar / book?.comments.length));
 		}
-	}, [book]);
+	}, [book, mode]);
 
 	useEffect(() => {
 		loadingRef?.current?.staticStart();
@@ -34,11 +47,31 @@ export default function BookDetailPage(props: any) {
 			else setBook(null);
 			loadingRef?.current?.complete();
 		});
-	}, [props.match.params.id]);
+	}, [props.match.params.id, mode]);
+
+	const Vote = () => {
+		if (user?.current?.token) {
+			PostVote(user.current.token, {
+				bookId: book.id,
+				rating: star,
+				comment: commentRef?.current?.value,
+			}).then((res) => {
+				if (res.data.success) {
+					setMessage(<Message content={res.data.message} button="Ok" color="green" setMode={setMode} />);
+					setMode("MESSAGE");
+				} else {
+					setMode("MESSAGE");
+					setMessage(<Message content={res.data.message} button="Ok" color="red" setMode={setMode} />);
+				}
+			});
+			if (commentRef?.current) commentRef.current.value = "";
+		}
+	};
 
 	return (
 		<div className="px-10 lg:px-20 xl:px-32 mt-5 flex-1 max-w-screen-lg">
 			<LoadingBar color="#f11946" ref={loadingRef} waitingTime={500} />
+			{mode === "MESSAGE" && message}
 			<SearchBar />
 			{(book && (
 				<>
@@ -136,35 +169,40 @@ export default function BookDetailPage(props: any) {
 								<>
 									<div className="flex flex-col md:flex-row ">
 										<div className="m-4">
-											<div className="flex items-center space-x-2">
-												<input className="cursor-pointer" type="radio" name="star" value="5" />
+											<div onClick={() => setStar(5)} className="flex items-center space-x-2 cursor-pointer">
+												<input className="cursor-pointer" type="radio" name="star" value="5" checked={star === 5} />
 												<Rating star={5} count={5} color="yellow" />
 											</div>
-											<div className="flex items-center space-x-2">
-												<input className="cursor-pointer" type="radio" name="star" value="4" />
+											<div onClick={() => setStar(4)} className="flex items-center space-x-2 cursor-pointer">
+												<input className="cursor-pointer" type="radio" name="star" value="4" checked={star === 4} />
 												<Rating star={4} count={4} color="yellow" />
 											</div>
-											<div className="flex items-center space-x-2">
-												<input className="cursor-pointer" type="radio" name="star" value="3" />
+											<div onClick={() => setStar(3)} className="flex items-center space-x-2 cursor-pointer">
+												<input className="cursor-pointer" type="radio" name="star" value="3" checked={star === 3} />
 												<Rating star={3} count={3} color="yellow" />
 											</div>
-											<div className="flex items-center space-x-2">
-												<input className="cursor-pointer" type="radio" name="star" value="2" />
+											<div onClick={() => setStar(2)} className="flex items-center space-x-2 cursor-pointer">
+												<input className="cursor-pointer" type="radio" name="star" value="2" checked={star === 2} />
 												<Rating star={2} count={2} color="yellow" />
 											</div>
-											<div className="flex items-center space-x-2">
-												<input className="cursor-pointer" type="radio" name="star" value="1" />
+											<div onClick={() => setStar(1)} className="flex items-center space-x-2 cursor-pointer">
+												<input className="cursor-pointer" type="radio" name="star" value="1" checked={star === 1} />
 												<Rating star={1} count={1} color="yellow" />
 											</div>
 										</div>
 										<div className="m-4 w-full">
 											<textarea
+												ref={commentRef}
 												className="rounded-md w-full p-2 focus:outline-none border focus:border-blue-500"
 												placeholder="Nhập đánh giá"
 												name="comment"
 												rows={5}
+												disabled={!user?.current?.token}
 											/>
-											<button className="right-0 float-right clear-right px-4 py-2 rounded-lg bg-indigo-500 hover:bg-indigo-600 text-white font-bold">
+											<button
+												onClick={Vote}
+												className="right-0 float-right clear-right px-4 py-2 rounded-lg bg-indigo-500 hover:bg-indigo-600 text-white font-bold"
+												disabled={!user?.current?.token}>
 												<i className="far fa-paper-plane" /> Gửi
 											</button>
 										</div>

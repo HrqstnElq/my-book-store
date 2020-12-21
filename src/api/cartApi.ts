@@ -27,3 +27,20 @@ export const getCart = (token: string) =>
 			Authorization: "Bearer " + token,
 		},
 	});
+
+export const removeCart = (token: string, bookId: number) =>
+	Axios.delete("/api/cart/delete", {
+		headers: {
+			Authorization: "Bearer " + token,
+		},
+		params: {
+			bookId: bookId,
+		},
+	});
+
+export const clearCart = (token: string) =>
+	Axios.delete("/api/cart/clear", {
+		headers: {
+			Authorization: "Bearer " + token,
+		},
+	});

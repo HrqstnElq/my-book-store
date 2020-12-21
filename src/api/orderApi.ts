@@ -29,3 +29,12 @@ export const updateOrder = (orderId: number, order: Order, token: string) =>
 			Authorization: "Bearer " + token,
 		},
 	});
+
+export const createOrder = (cart: any) => Axios.post("/api/order/create", {cartRequests: cart});
+
+export const addOrder = (token: string, order: any) =>
+	Axios.post("/api/order/add", order, {
+		headers: {
+			Authorization: "Bearer " + token,
+		},
+	});
