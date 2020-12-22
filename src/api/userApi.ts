@@ -2,6 +2,18 @@ import {Axios} from "./Axios";
 
 //
 
+type RegisterData = {
+	username: string;
+	fullName: string;
+	isMale: boolean;
+	dob: string;
+	email: string;
+	address: string;
+	phoneNumber: string;
+	password: string;
+	confirmPassword: string;
+};
+
 export const LoginApi = (username: string, password: string) =>
 	Axios.post("/api/account/login", {
 		username: username,
@@ -17,3 +29,5 @@ export const GetInfo = (userId: string, token: string) =>
 			id: userId,
 		},
 	});
+
+export const Register = (data: RegisterData) => Axios.post("/api/account/register", data);

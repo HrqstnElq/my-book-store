@@ -3,10 +3,9 @@ import {useDispatch} from "react-redux";
 import {Link} from "react-router-dom";
 import {AddItem} from "store/cartSlice";
 import Rating from "../Rating";
+import {VND} from "common/function";
 
 import LoadingBar from "react-top-loading-bar";
-
-const VND = (price: number) => new Intl.NumberFormat("vi-VN", {style: "currency", currency: "VND"}).format(price);
 
 export default function Book(props: {book: any}) {
 	const {book} = props;

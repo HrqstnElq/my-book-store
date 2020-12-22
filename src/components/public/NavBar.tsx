@@ -40,7 +40,7 @@ export default function NavBar() {
 								<img
 									onClick={() => setActive(!active)}
 									className="h-10 w-10 rounded-full object-cover cursor-pointer select-none"
-									src="https://i.pinimg.com/originals/bb/59/c9/bb59c90c3062e5cced0be5bcdb3f8d6c.jpg"
+									src={user.current.avatar}
 									alt=""
 								/>
 							)) || (
@@ -60,10 +60,10 @@ export default function NavBar() {
 							<Link to="/public/cart" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">
 								Giỏ hàng
 							</Link>
-							{(user.token && (
+							{(user.current.token && (
 								<>
-									<Link to="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">
-										Thông báo
+									<Link to="/public/order" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">
+										Đơn hàng
 									</Link>
 									<Link to="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">
 										Hồ sơ

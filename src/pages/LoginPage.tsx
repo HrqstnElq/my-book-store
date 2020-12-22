@@ -1,10 +1,17 @@
 import LoginForm from "components/LoginForm";
+import RegisterForm from "components/RegisterForm";
 import React, {useState} from "react";
+import {useSelector} from "react-redux";
 import {Link} from "react-router-dom";
 import "./Login.css";
 
-export default function LoginPage() {
-	const [form, setForm] = useState("LOGIN");
+export default function LoginPage(props: any) {
+	const [form, setForm] = useState(props.location.search === "?register=true" ? "REGISTER" : "LOGIN");
+	const userState = useSelector((state: any) => state.user);
+	if (userState.current.role === "admin" || userState.current.role === "sales") {
+		window.location.href = "/admin";
+	}
+
 	const changeFormHandler = () => {
 		if (form === "LOGIN") setForm("REGISTER");
 		else if (form === "REGISTER") setForm("LOGIN");
@@ -13,7 +20,7 @@ export default function LoginPage() {
 	return (
 		<div>
 			<div className="container flex-row flex">
-				<section className="left relative w-2/5 p-20 min-h-screen hidden lg:block">
+				<section className="left relative top-0 w-2/5 p-20 min-h-screen hidden lg:block">
 					<button onClick={() => (window.location.href = "/")} className="logo text-3xl font-bold hover:text-pink-500">
 						Home
 					</button>
@@ -32,9 +39,9 @@ export default function LoginPage() {
 							</span>
 						</h3>
 					</div>
-					<div className="login w-80">
+					<div className="login w-96">
 						<div className="form--header mb-5">
-							<h2 className="text-2xl font-semibold mb-5">Đăng nhập</h2>
+							<h2 className="text-2xl font-semibold mb-5">{(form === "LOGIN" && "Đăng nhập") || "Đăng kí"}</h2>
 							<button className="inline-block w-12 h-12 bg-red-500 hover:bg-red-600 focus:outline-none text-white font-medium rounded-xl mb-10  mr-2">
 								<i className="fab fa-google"></i>
 							</button>
@@ -44,9 +51,9 @@ export default function LoginPage() {
 							<button className="inline-block w-12 h-12 bg-blue-400 hover:bg-blue-500 focus:outline-none text-white font-medium rounded-xl mb-10">
 								<i className="fab fa-twitter"></i>
 							</button>
-							<hr className="divider" />
 						</div>
 						{form === "LOGIN" && <LoginForm />}
+						{form === "REGISTER" && <RegisterForm />}
 					</div>
 				</section>
 			</div>

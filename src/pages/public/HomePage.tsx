@@ -6,7 +6,6 @@ import GridBook from "components/public/GridBook";
 import SearchBar from "components/public/SearchBar";
 import React, {useEffect, useRef, useState} from "react";
 import {Link} from "react-router-dom";
-
 import LoadingBar from "react-top-loading-bar";
 
 export default function HomePage() {

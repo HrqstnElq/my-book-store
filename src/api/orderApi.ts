@@ -5,9 +5,16 @@ export interface Order {
 	address: string;
 	dateCreate?: string;
 	dateReceive?: string | null;
-	dateReturn?: string;
+	dateReturn?: string | null;
 	orderStatus?: number;
 }
+
+export const getAllOrderUser = (token: string) =>
+	Axios.get("/api/order/user", {
+		headers: {
+			Authorization: "Bearer " + token,
+		},
+	});
 
 export const getAllOrderAdmin = (token: string) =>
 	Axios.get("/api/admin/order/all", {

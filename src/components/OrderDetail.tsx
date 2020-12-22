@@ -34,8 +34,10 @@ export default function OrderDetail(props: {admin: boolean; mode: {type: string;
 		var confirm = window.confirm("Xác nhận thao tác !");
 		if (confirm.valueOf()) {
 			var dateReceive = null;
+			var dateReturn = null;
 			//TODO doi thanh ngay hoan tra cho mode 3
-			if (mode.data.orderStatus === 2 || mode.data.orderStatus === 3) dateReceive = getCurrentDate();
+			if (mode.data.orderStatus === 2) dateReceive = getCurrentDate();
+			if (mode.data.orderStatus === 3) dateReturn = getCurrentDate();
 			var nextOrderStatus = mode.data.orderStatus < 4 ? mode.data.orderStatus + 1 : mode.data.orderStatus;
 
 			setMode({
@@ -44,6 +46,7 @@ export default function OrderDetail(props: {admin: boolean; mode: {type: string;
 					...mode.data,
 					orderStatus: nextOrderStatus,
 					dateReceive: dateReceive,
+					dateReturn: dateReturn,
 				},
 			});
 
@@ -51,6 +54,7 @@ export default function OrderDetail(props: {admin: boolean; mode: {type: string;
 				userId: mode.data.userId,
 				address: mode.data.address,
 				dateReceive: dateReceive,
+				dateReturn: dateReturn,
 				orderStatus: nextOrderStatus,
 			};
 
@@ -150,7 +154,7 @@ export default function OrderDetail(props: {admin: boolean; mode: {type: string;
 										name="dateCreate"
 										className=" appearance-none border border-gray-200 p-2 focus:outline-none focus:border-gray-500"
 										type="date"
-										value={mode.data.dateReceive?.split("T")[0]}
+										value={mode.data.dateReturn?.split("T")[0]}
 										readOnly
 									/>
 								</div>

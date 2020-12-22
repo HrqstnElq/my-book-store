@@ -38,7 +38,7 @@
 		"eject": "react-scripts eject",
 		"start": "react-scripts start",
 		"build": "react-scripts build",
-		"prod": "set NODE_ENV=production&&npm run build:css && react-scripts build",
+		"production": "set NODE_ENV=production&&npm run build:css && react-scripts build",
 		"build:css": "postcss src/assets/styles/tailwind.css -o src/index.css ",
 		"watch:css": "postcss src/assets/styles/tailwind.css -o src/index.css -w"
 	},

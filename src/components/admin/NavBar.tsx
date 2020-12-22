@@ -67,13 +67,16 @@ export default function NavBar() {
 								<NavLink to={`${match.url}/product`} className="text-white px-3 py-2 rounded-md text-sm font-medium">
 									Sản phẩm
 								</NavLink>
-								<NavLink to={`${match.url}/customer`} className="text-white px-3 py-2 rounded-md text-sm font-medium">
-									Khách hàng
-								</NavLink>
+
 								{userState.current.role === "admin" && (
-									<NavLink to={`${match.url}/sales`} className="text-white px-3 py-2 rounded-md text-sm font-medium">
-										Nhân viên
-									</NavLink>
+									<>
+										<NavLink to={`${match.url}/customer`} className="text-white px-3 py-2 rounded-md text-sm font-medium">
+											Khách hàng
+										</NavLink>
+										<NavLink to={`${match.url}/sales`} className="text-white px-3 py-2 rounded-md text-sm font-medium">
+											Nhân viên
+										</NavLink>
+									</>
 								)}
 							</div>
 						</div>
@@ -145,17 +148,20 @@ export default function NavBar() {
 						className="text-white hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">
 						Sản phẩm
 					</NavLink>
-					<NavLink
-						to={`${match.url}/customer`}
-						className="text-white hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">
-						Khách hàng
-					</NavLink>
+
 					{userState.current.role === "admin" && (
-						<NavLink
-							to={`${match.url}/sales`}
-							className="text-white hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">
-							Nhân viên
-						</NavLink>
+						<>
+							<NavLink
+								to={`${match.url}/customer`}
+								className="text-white hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">
+								Khách hàng
+							</NavLink>
+							<NavLink
+								to={`${match.url}/sales`}
+								className="text-white hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">
+								Nhân viên
+							</NavLink>
+						</>
 					)}
 				</div>
 			</div>

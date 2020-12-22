@@ -5,8 +5,7 @@ import {Decrement, Increment, RemoveItem} from "store/cartSlice";
 import LoadingBar from "react-top-loading-bar";
 import {removeCart, syncCart} from "api/cartApi";
 import OrderForm from "components/public/OrderForm";
-
-const VND = (price: number) => new Intl.NumberFormat("vi-VN", {style: "currency", currency: "VND"}).format(price);
+import {VND} from "common/function";
 
 export default function CartPage() {
 	const dispatch = useDispatch();

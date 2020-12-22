@@ -8,8 +8,8 @@ import {useDispatch, useSelector} from "react-redux";
 import LoadingBar from "react-top-loading-bar";
 import {AddItem} from "store/cartSlice";
 import "./BookDetailPage.css";
+import {VND} from "common/function";
 
-const VND = (price: number) => new Intl.NumberFormat("vi-VN", {style: "currency", currency: "VND"}).format(price);
 const classNames = require("classnames");
 
 export default function BookDetailPage(props: any) {

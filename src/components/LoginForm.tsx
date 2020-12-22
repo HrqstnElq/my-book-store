@@ -13,13 +13,8 @@ export default function LoginForm() {
 	const usernameRef = useRef<HTMLInputElement>(null);
 	const passwordRef = useRef<HTMLInputElement>(null);
 	const dispatch = useDispatch();
-
 	const [err, setErr] = useState<String>("");
 
-	if (userState.current.role === "admin" || userState.current.role === "sales") {
-		window.location.href = "/admin";
-		// return <Redirect to="/admin"></Redirect>;
-	}
 	if (userState.current.role === "user") {
 		var cart = JSON.parse(window.localStorage.getItem("cart") || "[]");
 		if (cart.length > 0) {
@@ -73,7 +68,10 @@ export default function LoginForm() {
 	return (
 		<form className="login--form" autoComplete="off" onSubmit={onSubmitHandler}>
 			<LoadingBar color="#f11946" ref={loadingRef} waitingTime={500} />
+			<hr className="divider" />
+
 			<div className="form--content">
+				<code>admin, 1 | sales, 1 | user, 1</code>
 				<div className="form-group my-5">
 					<label htmlFor="username" className="block font-bold">
 						Tên đăng nhập
