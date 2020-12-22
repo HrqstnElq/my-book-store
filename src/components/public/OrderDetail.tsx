@@ -11,7 +11,9 @@ export default function OrderDetail(props: {order: any; setMode: Function; destr
 	const user = useSelector((state: any) => state.user);
 	const loadingRef = useRef<any>(null);
 
-	useEffect(() => {}, []);
+	useEffect(() => {
+		setBooks([]);
+	}, []);
 
 	const onSubmit = (data: any) => {};
 
