@@ -2,6 +2,7 @@ import {getBooksPaging} from "api/productApi";
 import Pagination from "components/Pagination";
 import GridBook from "components/public/GridBook";
 import SearchBar from "components/public/SearchBar";
+import SortBar from "components/public/SortBar";
 import React, {useEffect, useRef, useState} from "react";
 import LoadingBar from "react-top-loading-bar";
 
@@ -28,9 +29,10 @@ export default function SearchPage() {
 	}, [query]);
 
 	return (
-		<div className="px-10 lg:px-20 xl:px-32 mt-5 flex-1 max-w-screen-lg space-y-4">
+		<div className="px-10 lg:px-20 xl:px-32 mt-2 flex-1 max-w-screen-lg space-y-4">
 			<LoadingBar color="#f11946" ref={loadingRef} waitingTime={500} />
 			<SearchBar query={query} setQuery={setQuery} />
+			<SortBar query={query} setQuery={setQuery} />
 			<GridBook books={paging.books} />
 			<Pagination size={query.size} totalPage={paging.totalPage} query={query} setQuery={setQuery} />
 		</div>

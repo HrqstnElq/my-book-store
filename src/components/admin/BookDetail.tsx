@@ -6,8 +6,8 @@ import Rating from "../Rating";
 
 export default function BookDetail(props: {bookAction: any; setBookAction: Function; bookDetail: any}) {
 	const {bookDetail, bookAction, setBookAction} = props;
-
 	const [rating, setRating] = useState(0);
+
 	useEffect(() => {
 		if (bookDetail.comments.length) {
 			setRating(Math.ceil(bookDetail.comments.reduce((x: any, y: any) => x.rating + y.rating) / bookDetail.comments.length));

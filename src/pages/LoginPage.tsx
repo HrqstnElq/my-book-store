@@ -6,7 +6,7 @@ import {Link} from "react-router-dom";
 import "./Login.css";
 
 export default function LoginPage(props: any) {
-	const [form, setForm] = useState(props.location.search === "?register=true" ? "REGISTER" : "LOGIN");
+	const [form, setForm] = useState(props.location.search === "?register" ? "REGISTER" : "LOGIN");
 	const userState = useSelector((state: any) => state.user);
 	if (userState.current.role === "admin" || userState.current.role === "sales") {
 		window.location.href = "/admin";
@@ -40,7 +40,7 @@ export default function LoginPage(props: any) {
 						</h3>
 					</div>
 					<div className="login w-96">
-						<div className="form--header mb-5">
+						<div className="form--header">
 							<h2 className="text-2xl font-semibold mb-5">{(form === "LOGIN" && "Đăng nhập") || "Đăng kí"}</h2>
 							<button className="inline-block w-12 h-12 bg-red-500 hover:bg-red-600 focus:outline-none text-white font-medium rounded-xl mb-10  mr-2">
 								<i className="fab fa-google"></i>

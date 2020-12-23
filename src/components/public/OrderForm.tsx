@@ -6,14 +6,18 @@ import {useDispatch, useSelector} from "react-redux";
 import LoadingBar from "react-top-loading-bar";
 import {Clear} from "store/cartSlice";
 import {VND} from "common/function";
+import {useHistory} from "react-router-dom";
 
-export default function OrderForm(props: {books?: any[]; setMode: Function}) {
+export default function OrderForm(props: {books: any[]; setMode: Function}) {
 	const {books, setMode} = props;
 	const [order, setOrder] = useState({products: [], totalPrice: 0});
 	const {register, handleSubmit} = useForm();
 	const user = useSelector((state: any) => state.user);
 	const loadingRef = useRef<any>(null);
 	const dispatch = useDispatch();
+
+	const history = useHistory();
+	console.log("history", history);
 
 	useEffect(() => {
 		createOrder(books).then((res: any) => {
@@ -36,10 +40,11 @@ export default function OrderForm(props: {books?: any[]; setMode: Function}) {
 				orderRequest: data,
 			}).then((res: any) => {
 				if (res.data.success) {
-					//NOTE : dispatch clear
-					dispatch(Clear());
-					clearCart(user.current.token);
-
+					//neu khong phai dang o tran cart thi se khong clear gio hang
+					if (!history.location.pathname.includes("/book")) {
+						dispatch(Clear());
+						clearCart(user.current.token);
+					}
 					loadingRef?.current?.complete();
 					setMode(false);
 				} else {

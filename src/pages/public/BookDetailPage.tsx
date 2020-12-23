@@ -9,6 +9,7 @@ import LoadingBar from "react-top-loading-bar";
 import {AddItem} from "store/cartSlice";
 import "./BookDetailPage.css";
 import {VND} from "common/function";
+import OrderForm from "components/public/OrderForm";
 
 const classNames = require("classnames");
 
@@ -22,8 +23,8 @@ export default function BookDetailPage(props: any) {
 	const [starAvg, setStarAvg] = useState(5);
 	const [tab, setTab] = useState("DESC");
 	const [mode, setMode] = useState("DEFAULT");
-
 	const [message, setMessage] = useState<any>();
+	const [orderForm, setOrderForm] = useState<any>();
 
 	const user = useSelector((state: any) => state.user);
 	const dispatch = useDispatch();
@@ -49,6 +50,20 @@ export default function BookDetailPage(props: any) {
 		});
 	}, [props.match.params.id, mode]);
 
+	useEffect(() => {
+		if (mode === "Login") window.location.href = "/login?return=public/book/1";
+	});
+
+	const buyClickHandler = () => {
+		if (user.current.token) {
+			setOrderForm(<OrderForm books={[{bookId: book.id, quantity: quantity}]} setMode={setMode} />);
+			setMode("ORDER");
+		} else {
+			setMessage(<Message content="Vui lòng đăng nhập đã 😉" button="Login" color="green" setMode={setMode} />);
+			setMode("MESSAGE");
+		}
+	};
+
 	const Vote = () => {
 		if (user?.current?.token) {
 			PostVote(user.current.token, {
@@ -72,6 +87,7 @@ export default function BookDetailPage(props: any) {
 		<div className="px-10 lg:px-20 xl:px-32 mt-5 flex-1 max-w-screen-lg">
 			<LoadingBar color="#f11946" ref={loadingRef} waitingTime={500} />
 			{mode === "MESSAGE" && message}
+			{mode === "ORDER" && orderForm}
 			<SearchBar />
 			{(book && (
 				<>
@@ -140,7 +156,9 @@ export default function BookDetailPage(props: any) {
 										className="px-4 py-2 bg-gray-700 hover:bg-gray-800 rounded-md text-white font-medium">
 										Thêm vào giỏ
 									</button>
-									<button className="px-4 py-2 bg-indigo-500 hover:bg-indigo-600 rounded-md text-white font-medium">
+									<button
+										onClick={buyClickHandler}
+										className="px-4 py-2 bg-indigo-500 hover:bg-indigo-600 rounded-md text-white font-medium">
 										Mua ngay
 									</button>
 								</div>

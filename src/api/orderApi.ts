@@ -9,10 +9,13 @@ export interface Order {
 	orderStatus?: number;
 }
 
-export const getAllOrderUser = (token: string) =>
+export const getAllOrderUser = (token: string, isDelete: boolean = false) =>
 	Axios.get("/api/order/user", {
 		headers: {
 			Authorization: "Bearer " + token,
+		},
+		params: {
+			isDelete: isDelete,
 		},
 	});
 
@@ -41,6 +44,13 @@ export const createOrder = (cart: any) => Axios.post("/api/order/create", {cartR
 
 export const addOrder = (token: string, order: any) =>
 	Axios.post("/api/order/add", order, {
+		headers: {
+			Authorization: "Bearer " + token,
+		},
+	});
+
+export const deleteOrder = (token: string, orderId: number) =>
+	Axios.delete(`/api/order/delete/${orderId}`, {
 		headers: {
 			Authorization: "Bearer " + token,
 		},

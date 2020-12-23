@@ -11,6 +11,7 @@ import HighLightPage from "./HighLightPage";
 import HomePage from "./HomePage";
 import OrderPage from "./OrderPage";
 import SearchPage from "./SearchPage";
+import UserPage from "./UserPage";
 
 export default function PublicPage() {
 	const match = useRouteMatch();
@@ -38,6 +39,7 @@ export default function PublicPage() {
 					<Route exact path={`${match.url}/category`} component={CategoryPage} />
 					<Route exact path={`${match.url}/cart`} component={CartPage} />
 					<Route exact path={`${match.url}/order`} component={OrderPage} />
+					<Route exact path={`${match.url}/account`} component={UserPage} />
 					<Route path={"*"} component={NotFoundPage} />
 				</Switch>
 				<RightBar />

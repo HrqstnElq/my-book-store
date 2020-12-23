@@ -4,20 +4,18 @@ import {useForm} from "react-hook-form";
 import LoadingBar from "react-top-loading-bar";
 
 export default function RegisterForm() {
-	const {register, handleSubmit} = useForm();
+	const {register, errors, handleSubmit} = useForm();
 	const [err, setErr] = useState("");
 
 	const loadingRef = useRef<any>(null);
 
 	const onSubmit = (data: any) => {
-		loadingRef.current.staticStart();
 		if (data.password !== data.confirmPassword) {
 			setErr("Mật khẩu không khớp nhau");
-			loadingRef.current.complete();
 		} else {
 			setErr("");
-			console.log(data);
 
+			loadingRef.current.staticStart();
 			Register(data).then((res: any) => {
 				if (res.data.success) {
 					window.location.href = "/login";
@@ -33,7 +31,7 @@ export default function RegisterForm() {
 			<LoadingBar color="#f11946" ref={loadingRef} waitingTime={500} />
 			<div className="form--content">
 				<div className="flex justify-between">
-					<div className="form-group my-4">
+					<div className="form-group my-2">
 						<label htmlFor="username" className="block font-bold">
 							Tên đăng nhập
 						</label>
@@ -46,7 +44,7 @@ export default function RegisterForm() {
 						/>
 					</div>
 
-					<div className="form-group my-4">
+					<div className="form-group my-2">
 						<label htmlFor="username" className="block font-bold">
 							Họ và tên
 						</label>
@@ -61,7 +59,7 @@ export default function RegisterForm() {
 				</div>
 
 				<div className="flex justify-between">
-					<div className="form-group my-4">
+					<div className="form-group my-2">
 						<label htmlFor="username" className="block font-bold">
 							Ngày sinh
 						</label>
@@ -74,7 +72,7 @@ export default function RegisterForm() {
 						/>
 					</div>
 
-					<div className="form-group my-4">
+					<div className="form-group my-2">
 						<label htmlFor="username" className="block font-bold">
 							Giới tính
 						</label>
@@ -96,7 +94,7 @@ export default function RegisterForm() {
 				</div>
 
 				<div className="flex justify-between">
-					<div className="form-group my-4">
+					<div className="form-group my-2">
 						<label htmlFor="username" className="block font-bold">
 							Email
 						</label>
@@ -109,12 +107,12 @@ export default function RegisterForm() {
 						/>
 					</div>
 
-					<div className="form-group my-4">
+					<div className="form-group my-2">
 						<label htmlFor="username" className="block font-bold">
 							Số điện thoại
 						</label>
 						<input
-							ref={register}
+							ref={register({pattern: {value: /^(03|05|07|08|09|01[2|6|8|9])+([0-9]{8})\b/, message: "Số điện thoại không hợp lệ"}})}
 							required
 							type="tel"
 							name="phoneNumber"
@@ -123,7 +121,7 @@ export default function RegisterForm() {
 					</div>
 				</div>
 
-				<div className="form-group my-4">
+				<div className="form-group my-2">
 					<label htmlFor="username" className="block font-bold">
 						Địa chỉ
 					</label>
@@ -137,7 +135,7 @@ export default function RegisterForm() {
 				</div>
 
 				<div className="flex justify-between">
-					<div className="form-group my-4">
+					<div className="form-group my-2">
 						<label htmlFor="password" className="font-bold">
 							Mật khẩu
 						</label>
@@ -151,7 +149,7 @@ export default function RegisterForm() {
 						/>
 					</div>
 
-					<div className="form-group my-4 space-y-1">
+					<div className="form-group my-2 space-y-1">
 						<label htmlFor="password" className="font-bold">
 							Nhập lại mật khẩu
 						</label>
@@ -165,7 +163,10 @@ export default function RegisterForm() {
 						/>
 					</div>
 				</div>
-				<span className=" text-red-600">{err}</span>
+				<div className="h-10">
+					<span className=" text-red-600 text-sm">{err}</span>
+					<span className=" text-red-600 text-sm">{errors.phoneNumber?.message}</span>
+				</div>
 			</div>
 			<button className="w-full mt-3 px-10 py-3 bg-pink-500 hover:bg-pink-600 focus:outline-none text-white font-medium rounded-xl mb-10">
 				Đăng Kí

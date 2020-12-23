@@ -1,17 +1,19 @@
 import {unwrapResult} from "@reduxjs/toolkit";
 import {Cart, getCart, syncCart} from "api/cartApi";
-import React, {useRef, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {Link} from "react-router-dom";
 import LoadingBar from "react-top-loading-bar";
 import {Login} from "store/userSlice";
 
 export default function LoginForm() {
+	const redirectUrl = window.location.search.split("=")[1];
+
 	const userState = useSelector((state: any) => state.user);
 	const loadingRef = useRef<any>(null);
-
 	const usernameRef = useRef<HTMLInputElement>(null);
 	const passwordRef = useRef<HTMLInputElement>(null);
+	const [saveMe, setSaveMe] = useState(false);
 	const dispatch = useDispatch();
 	const [err, setErr] = useState<String>("");
 
@@ -48,15 +50,21 @@ export default function LoginForm() {
 		event.preventDefault();
 		if (passwordRef.current && usernameRef.current) {
 			loadingRef.current.staticStart();
-			const actionResult = await dispatch(
-				Login({
-					username: usernameRef.current.value,
-					password: passwordRef.current.value,
-				})
-			);
+			var loginData = {
+				username: usernameRef.current.value,
+				password: passwordRef.current.value,
+			};
+
+			const actionResult = await dispatch(Login(loginData));
 			try {
 				const result = unwrapResult(actionResult as any);
 				console.log(result);
+				if (result.token) {
+					if (saveMe) window.localStorage.setItem("login", JSON.stringify(loginData));
+					else window.localStorage.removeItem("login");
+
+					if (redirectUrl) window.location.href = redirectUrl;
+				}
 			} catch (err) {
 				console.log(err.error);
 				setErr(err.error);
@@ -64,6 +72,14 @@ export default function LoginForm() {
 			}
 		}
 	};
+
+	useEffect(() => {
+		const loginData = JSON.parse(window.localStorage.getItem("login") || "{}");
+		if (usernameRef.current && passwordRef.current) {
+			usernameRef.current.value = loginData.username ?? "";
+			passwordRef.current.value = loginData.password ?? "";
+		}
+	}, []);
 
 	return (
 		<form className="login--form" autoComplete="off" onSubmit={onSubmitHandler}>
@@ -104,6 +120,12 @@ export default function LoginForm() {
 						name="password"
 						className="mt-1 p-2 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border border-gray-300 rounded-md"
 					/>
+					<div className="mt-4">
+						<label className="font-medium mr-4" htmlFor="remember">
+							Nhớ tài khoản
+						</label>
+						<input value="true" onChange={() => setSaveMe(!saveMe)} type="checkbox" name="remember" checked={saveMe} />
+					</div>
 				</div>
 				<span className=" text-red-600">{err}</span>
 			</div>

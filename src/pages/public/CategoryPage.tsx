@@ -6,6 +6,7 @@ import {getAllCategory} from "api/categoryApi";
 import Pagination from "components/Pagination";
 import {getBooksPaging} from "api/productApi";
 import LoadingBar from "react-top-loading-bar";
+import SortBar from "components/public/SortBar";
 
 export default function CategoryPage() {
 	const [categories, setCategories] = useState([]);
@@ -43,6 +44,7 @@ export default function CategoryPage() {
 			<SearchBar />
 			<section className="w-full">
 				<CategorySlide categories={categories} current={query} setCurrent={setQuery} />
+				<SortBar query={query} setQuery={setQuery} />
 				<GridBook books={paging.books} />
 				<Pagination size={8} totalPage={paging.totalPage} query={query} setQuery={setQuery} />
 			</section>
