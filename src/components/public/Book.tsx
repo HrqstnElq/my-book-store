@@ -28,7 +28,7 @@ export default function Book(props: {book: any}) {
 			<div className="flex flex-col justify-between h-48">
 				<div>
 					<Link to={`/public/book/${book.id}`} className="text-xl font-semibold text-indigo-900">
-						{book.name}
+						{book.name.length > 30 ? book.name.slice(0, 30) + "..." : book.name}
 					</Link>
 					<p>{book.author}</p>
 					<Rating star={starAvg} count={book.rating_count} color="yellow" />

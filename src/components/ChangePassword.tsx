@@ -15,7 +15,6 @@ export default function ChangePassword(props: {setForm: Function}) {
 	const user = useSelector((state: any) => state.user);
 
 	const onSubmit = (data: any) => {
-		alert(JSON.stringify(data));
 		ChangePasswordAPI(user.current.token, data).then((res: any) => {
 			if (res.data.success) {
 				setForm(null);

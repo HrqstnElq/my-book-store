@@ -1,4 +1,4 @@
-import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
+import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {GetInfo, LoginApi} from "api/userApi";
 
 export const Login = createAsyncThunk("user/login", async (params: {username: string; password: string}, {rejectWithValue}) => {
@@ -69,6 +69,25 @@ const userSlice = createSlice({
 				id: "",
 			};
 		},
+		Update: (
+			state,
+			action: PayloadAction<{
+				fullName: string;
+				isMale: boolean;
+				email: string;
+				address: string;
+				phoneNumber: string;
+				avatar: string;
+				dob: string;
+			}>
+		) => {
+			state.current = {
+				...state.current,
+				...action.payload,
+			};
+
+			localStorage.setItem("userInfo", JSON.stringify(state.current));
+		},
 	},
 	extraReducers: {
 		[Login.pending as any]: (state, action) => {
@@ -89,4 +108,4 @@ const {reducer: userReducer} = userSlice;
 
 export default userReducer;
 
-export const {Logout} = userSlice.actions;
+export const {Logout, Update} = userSlice.actions;

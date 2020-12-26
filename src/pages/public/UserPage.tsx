@@ -2,18 +2,19 @@ import {ChangePasswordAPI, UpdateAccount} from "api/userApi";
 import ChangePassword from "components/ChangePassword";
 import React, {useRef, useState} from "react";
 import {useForm} from "react-hook-form";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import LoadingBar from "react-top-loading-bar";
+import {Update} from "store/userSlice";
 
 const classNames = require("classnames");
 export default function UserPage() {
 	const loadingRef = useRef<any>(null);
 	const {register, errors, handleSubmit} = useForm();
 	const [isEdit, setEdit] = useState(false);
-	const [image, setImage] = useState<any>("https://i.pinimg.com/564x/ef/1b/d3/ef1bd3461661721596af7f859c6e1340.jpg");
 	const user = useSelector((state: any) => state.user);
+	const [image, setImage] = useState<any>(user.current.avatar);
 	const [changePasswordForm, setChangePasswordForm] = useState<any>();
-
+	const dispatch = useDispatch();
 	const reader = new FileReader();
 	reader.onload = () => {
 		setImage(reader.result);
@@ -24,9 +25,11 @@ export default function UserPage() {
 	};
 
 	const onSaveHandler = (data: any) => {
+		data.avatar = image;
 		loadingRef?.current?.staticStart();
 		UpdateAccount(user.current.token, data).then((res: any) => {
-			if (res.data.screen) {
+			if (res.data.success) {
+				dispatch(Update(data));
 				setEdit(false);
 				loadingRef?.current?.complete();
 			}
@@ -53,7 +56,7 @@ export default function UserPage() {
 						/>
 						{isEdit && (
 							<>
-								<input className="hidden" type="file" accept="image/*" name="bookImage" onChange={imageSelectHandler} />
+								<input ref={register} className="hidden" type="file" accept="image/*" name="avatar" onChange={imageSelectHandler} />
 								<div
 									className="bg-black bg-opacity-30 absolute rounded-full top-0 flex justify-center items-center pointer-events-none"
 									style={{height: "150px", width: "150px"}}>
@@ -95,7 +98,6 @@ export default function UserPage() {
 							<input
 								ref={register({
 									required: {value: true, message: "Vui lòng nhập tên"},
-									pattern: {value: /^[A-Za-z]+$/i, message: "Tên không được chứa số và kí tự đặc biệt"},
 									minLength: {value: 6, message: "Tên phải dài hơn 6 kí tự"},
 									maxLength: {value: 100, message: "Tên quá dài"},
 								})}
@@ -115,6 +117,7 @@ export default function UserPage() {
 								Giới tính :
 							</label>
 							<select
+								ref={register()}
 								className="bg-gray-100 outline-none px-2 py-1 rounded-sm w-48"
 								name="isMale"
 								defaultValue={user.current.isMale}
@@ -175,7 +178,7 @@ export default function UserPage() {
 								})}
 								className="bg-gray-100 px-2 py-1 rounded-sm w-48"
 								type="number"
-								name="phoneNumber"
+								name="phonenumber"
 								defaultValue={user.current.phonenumber}
 								readOnly={!isEdit}
 							/>
@@ -186,12 +189,12 @@ export default function UserPage() {
 					{(isEdit && (
 						<div className="space-x-4">
 							<button
-								className="mt-4 py-1 px-4 rounded-sm font-medium text-white hover:bg-yellow-400 hover:shadow-md bg-yellow-300"
+								className="mt-4 py-1 px-4 rounded-md font-medium text-white hover:bg-yellow-400 hover:shadow-md bg-yellow-300"
 								type="reset">
 								Hủy
 							</button>
 							<button
-								className="mt-4 py-1 px-4 rounded-sm font-medium text-white hover:bg-green-600 hover:shadow-md bg-green-500"
+								className="mt-4 py-1 px-4 rounded-md font-medium text-white hover:bg-green-600 hover:shadow-md bg-green-500"
 								type="submit">
 								Lưu thông tin
 							</button>
@@ -199,7 +202,7 @@ export default function UserPage() {
 					)) || (
 						<span
 							onClick={() => setChangePasswordForm(<ChangePassword setForm={setChangePasswordForm} />)}
-							className="mt-4 py-1 px-4 rounded-sm select-none cursor-pointer font-medium hover:bg-gray-200 hover:shadow-md bg-gray-300">
+							className="mt-4 py-1 px-4 rounded-md select-none cursor-pointer font-medium hover:bg-gray-200 hover:shadow-md bg-gray-300">
 							Đổi mật khẩu
 						</span>
 					)}
