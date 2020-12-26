@@ -49,7 +49,12 @@ export default function RegisterForm() {
 							Họ và tên
 						</label>
 						<input
-							ref={register}
+							ref={register({
+								required: {value: true, message: "Vui lòng nhập tên"},
+								pattern: {value: /^[A-Za-z]+$/i, message: "Tên không được chứa số và kí tự đặc biệt"},
+								minLength: {value: 6, message: "Tên phải dài hơn 6 kí tự"},
+								maxLength: {value: 100, message: "Tên quá dài"},
+							})}
 							required
 							type="text"
 							name="fullName"
@@ -164,8 +169,9 @@ export default function RegisterForm() {
 					</div>
 				</div>
 				<div className="h-10">
-					<span className=" text-red-600 text-sm">{err}</span>
-					<span className=" text-red-600 text-sm">{errors.phoneNumber?.message}</span>
+					<span className=" text-red-600 text-sm">{err} </span>
+					<span className=" text-red-600 text-sm">{errors.phoneNumber?.message} </span>
+					<span className=" text-red-600 text-sm">{errors.fullName?.message} </span>
 				</div>
 			</div>
 			<button className="w-full mt-3 px-10 py-3 bg-pink-500 hover:bg-pink-600 focus:outline-none text-white font-medium rounded-xl mb-10">

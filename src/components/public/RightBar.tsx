@@ -66,13 +66,25 @@ export default function RightBar() {
 								role="menu"
 								aria-orientation="vertical"
 								aria-labelledby="user-menu">
-								<Link to="/public/order" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">
+								<Link
+									to="/public/order"
+									onClick={() => setActive(false)}
+									className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+									role="menuitem">
 									Đơn hàng
 								</Link>
-								<Link to="/public/account" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">
+								<Link
+									to="/public/account"
+									onClick={() => setActive(false)}
+									className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+									role="menuitem">
 									Hồ sơ
 								</Link>
-								<Link to="/logout" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">
+								<Link
+									to="/logout"
+									onClick={() => setActive(false)}
+									className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+									role="menuitem">
 									Đăng xuất
 								</Link>
 							</div>

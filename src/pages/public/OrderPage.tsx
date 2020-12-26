@@ -28,7 +28,7 @@ export default function OrderPage() {
 
 	useEffect(() => {
 		window.scrollTo(0, 0);
-
+		loadingRef?.current?.staticStart();
 		getAllOrderUser(user.current.token, isDelete).then((res: any) => {
 			console.log(res.data);
 			if (res.data.success) {
@@ -36,6 +36,8 @@ export default function OrderPage() {
 			} else {
 				setErr(res.data.message);
 			}
+
+			loadingRef?.current?.complete();
 		});
 	}, [user, detail, isDelete]);
 
@@ -93,7 +95,7 @@ export default function OrderPage() {
 							<div className="w-1/6 px-2 hidden md:block">
 								{(isDelete && <label className={labels[4]}>Đã hủy</label>) || <label className={labels[0]}>{statuses[0]}</label>}
 							</div>
-							<div className="w-1/3 px-2 text-indigo-800">{VND(10000)}</div>
+							<div className="w-1/3 px-2 text-indigo-800">{VND(order.totalPrice)}</div>
 							<div className="w-1/12 pl-2 md:space-x-2">
 								<button onClick={() => showDetail(order)} className="text-green-500">
 									<i className="fal fa-exclamation-circle"></i>

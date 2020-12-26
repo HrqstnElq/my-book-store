@@ -1,48 +1,90 @@
-### Reponsitories BackEnd : https://github.com/huutri220820/NT208
+###### Reponsitories BackEnd : https://github.com/huutri220820/NT208
 
-# Getting Started with Create React App
+###### Reponsitories FrontEnd : https://github.com/HrqstnElq/my-book-store
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### A. Giới thiệu:
 
-## Available Scripts
+Đây là đồ án môn NT208 - Lập trình ứng dụng web
 
-In the project directory, you can run:
+**Các công nghệ sử dụng **
 
-### `npm start`
+- ReactJS Typescript : thư viện front end dùng để tạo ứng dụng web phía client 
+  Xem thêm tại : https://reactjs.org/
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- Axios : là một HTTP client được viết dựa trên Promises được dùng để hỗ trợ cho việc xây dựng các ứng dụng API từ đơn giản đến phức tạp và có thể được sử dụng cả ở trình duyệt hay Node.js.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+  Xem thêm tại : https://www.npmjs.com/package/axios
 
-### `npm test`
+- Redux/Redux Toolkit : là một thư viện Javascript giúp tạo ra thành một lớp quản lý trạng thái của ứng dụng.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+  Xem thêm tại : https://redux.js.org/,  https://redux-toolkit.js.org/
 
-### `npm run build`
+- Taildwind css :  Tailwind là một tập hợp các lớp tiện ích (class) cấp thấp. Chúng có thể được sử dụng như những viên gạch lego để xây dựng bất kỳ loại thành phần nào
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+  Xem thêm tại : https://tailwindcss.com/
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### B. Hướng dẫn cài đặt 
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+**Yêu cầu hệ thống**
 
-### `npm run eject`
+1. Hệ điều hành : Windows, Linux, Ubuntu, MacOS 
+2. Môi trường Nodejs cài đặt tại : https://nodejs.org/en/
+3. Công cụ hỗ trợ cài đặt các gói js npm : cài đặt kèm theo nodejs
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+**Các bước cài đặt**
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+1. Clone backend repo tại đường dẫn : https://github.com/huutri220820/NT208 và cài đặt dựa theo hướng dẫn ở đó
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+2. Clone repo này : 
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+   Nếu sử dụng git client : Mở CMD, Terminal hoặc Powershell tùy theo hệ điều hành
 
-## Learn More
+   > git clone https://github.com/HrqstnElq/my-book-store.git
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+   Nếu không sử dụng git : dowload file zip của repo tại https://github.com/HrqstnElq/my-book-store
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+3.  Cài đặt các pakage cần thiết 
+
+   Mở hoặc điều hướng cmd đến thư mục my-book-store 
+
+   > npm install 
+
+4. Chạy chương trình
+
+   > npm run start 
+
+   Sau đó truy cập vào đường dẫn http://localhost:3000 
+
+**Note** : nếu server chạy trên port khác 5000 vui lòng truy cập vào .env và sửa lại đường dẫn tương ứng
+
+
+
+**Nếu bạn muốn đăng nhập vui lòng sử dụng những tài khoản sau :** 
+
+username : user, password : 1 (role user)
+
+username : admin, password : 1 (role admin)
+
+username : sales, password : 1 (role sales)
+
+### C. Cấu trúc thư mục 
+
+src 
+├───api - chứa các api gọi đến server gửi và lấy dữ liệu
+├───assets  - chứa các tập tin css, image
+│   ├───images 
+│   │   ├───admin
+│   │   └───public
+│   │       └───banner
+│   └───styles - chứa các tập tin css 
+├───common - chứa các hàm dùng thường xuyên được sử dụng 
+├───components  - chứa các component/ bên ngoài hai thư mục dưới là dùng chung cho cả hai trang
+│   ├───admin - chứa các component của trang admin
+│   └───public - chứa các component của trang public
+├───pages - chứa các trang web(component chứa các component nhỏ hơn )
+│   ├───admin - chứa các trang web của trang admin
+│   └───public - chứa các trang web của trang public 
+└───store - chứa file cấu hình store của redux 
+
+
+

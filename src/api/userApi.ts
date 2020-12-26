@@ -1,7 +1,5 @@
 import {Axios} from "./Axios";
 
-//
-
 type RegisterData = {
 	username: string;
 	fullName: string;
@@ -31,3 +29,16 @@ export const GetInfo = (userId: string, token: string) =>
 	});
 
 export const Register = (data: RegisterData) => Axios.post("/api/account/register", data);
+
+export const ChangePasswordAPI = (token: string, data: any) =>
+	Axios.post("/api/account/changepassword", null, {
+		headers: {
+			Authorization: "Bearer " + token,
+		},
+		params: {
+			oldPassword: data.oldPassword,
+			newPassword: data.newPassword,
+		},
+	});
+
+export const UpdateAccount = (token: string, data: any) => Axios.post("/api/account/update", data, {headers: {Authorization: "Bearer " + token}});
