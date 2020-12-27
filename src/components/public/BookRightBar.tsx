@@ -22,7 +22,9 @@ export default function BookRightBar(props: {book: any}) {
 			</div>
 			<div className="book--content ml-2 flex flex-col justify-between" style={{width: "150px"}}>
 				<div>
-					<h3 className="font-medium">{book.name.length > 10 ? book.name.slice(0, 15) + "..." : book.name}</h3>
+					<h3 title={book.name} className="font-medium">
+						{book.name.length > 10 ? book.name.slice(0, 15) + "..." : book.name}
+					</h3>
 					<p className="font-thin text-xs">{book.author}</p>
 					<Rating star={starAvg} count={book.rating_count} color="yellow" />
 					<p className="text-red-700 text-xl font-semibold flex-1">{VND(book.price - book.sale * book.price)}</p>

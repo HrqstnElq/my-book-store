@@ -42,3 +42,10 @@ export const ChangePasswordAPI = (token: string, data: any) =>
 	});
 
 export const UpdateAccount = (token: string, data: any) => Axios.post("/api/account/update", data, {headers: {Authorization: "Bearer " + token}});
+
+export const GetAllUser = (token: string) =>
+	Axios.get("/api/admin/account/user/all", {
+		headers: {
+			Authorization: "Bearer " + token,
+		},
+	});

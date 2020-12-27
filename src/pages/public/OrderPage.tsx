@@ -30,7 +30,6 @@ export default function OrderPage() {
 		window.scrollTo(0, 0);
 		loadingRef?.current?.staticStart();
 		getAllOrderUser(user.current.token, isDelete).then((res: any) => {
-			console.log(res.data);
 			if (res.data.success) {
 				setOrders(res.data.payload);
 			} else {

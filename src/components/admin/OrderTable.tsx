@@ -58,7 +58,6 @@ export default function OrderTable(props: any) {
 		loadingRef.current.staticStart();
 		getAllOrderAdmin(user?.current?.token).then((res: AxiosResponse) => {
 			if (res.data.success) setOrders(res.data.payload);
-			console.log(res.data.payload);
 
 			if (loadingRef.current) loadingRef.current.complete();
 		});
@@ -82,8 +81,6 @@ export default function OrderTable(props: any) {
 
 		setCloneOrder(newOrders);
 	}, [filter, orders, currentPage, size, search]);
-
-	console.log("orders", orders);
 
 	return (
 		<div className="w-5/6 m-auto mt-4">

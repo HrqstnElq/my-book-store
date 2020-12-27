@@ -1,138 +1,82 @@
+import {GetAllUser} from "api/userApi";
+import AccountTable from "components/admin/AccountTable";
+import {ChangeEvent, useEffect, useState} from "react";
+import {useSelector} from "react-redux";
+
 export default function CustomerPage() {
+	const [accounts, setAccounts] = useState<any[]>([]);
+	const [cloneAccounts, setCloneAccounts] = useState<any[]>([]);
+	const user = useSelector((state: any) => state.user);
+	const [filter, setFilter] = useState({search: "", isDelete: ""});
+
+	useEffect(() => {
+		if (user.current.token) {
+			GetAllUser(user.current.token).then((res: any) => {
+				if (res.data.success) {
+					setAccounts(res.data.payload);
+				} else {
+					setAccounts([]);
+				}
+			});
+		}
+	}, [user]);
+
+	useEffect(() => {
+		setCloneAccounts(accounts);
+	}, [accounts]);
+
+	useEffect(() => {
+		var tempAccounts = accounts.filter(
+			(account) =>
+				account.username.toUpperCase().includes(filter.search) ||
+				account.fullName.toUpperCase().includes(filter.search) ||
+				account.email.toUpperCase().includes(filter.search) ||
+				account.phonenumber.toUpperCase().includes(filter.search)
+		);
+
+		if (filter.isDelete !== "") {
+			tempAccounts = tempAccounts.filter((account) => account.isDelete.toString() === filter.isDelete);
+		}
+		setCloneAccounts(tempAccounts);
+	}, [accounts, filter]);
+
+	const searchHandler = (event: ChangeEvent<HTMLInputElement>) => {
+		setFilter({
+			...filter,
+			search: event.target.value.toUpperCase(),
+		});
+	};
+
+	const statusHandler = (event: ChangeEvent<HTMLSelectElement>) => {
+		setFilter({
+			...filter,
+			isDelete: event.target.value,
+		});
+	};
+
 	return (
-		<div>
-			<table className="min-w-full leading-normal">
-				<thead>
-					<tr>
-						<th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-							User
-						</th>
-						<th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-							Rol
-						</th>
-						<th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-							Created at
-						</th>
-						<th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-							Status
-						</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-							<div className="flex items-center">
-								<div className="flex-shrink-0 w-10 h-10">
-									<img
-										className="w-full h-full rounded-full"
-										src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.2&w=160&h=160&q=80"
-										alt=""
-									/>
-								</div>
-								<div className="ml-3">
-									<p className="text-gray-900 whitespace-no-wrap">Vera Carpenter</p>
-								</div>
-							</div>
-						</td>
-						<td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-							<p className="text-gray-900 whitespace-no-wrap">Admin</p>
-						</td>
-						<td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-							<p className="text-gray-900 whitespace-no-wrap">Jan 21, 2020</p>
-						</td>
-						<td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-							<span className="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight">
-								<span aria-hidden className="absolute inset-0 bg-green-200 opacity-50 rounded-full"></span>
-								<span className="relative">Activo</span>
-							</span>
-						</td>
-					</tr>
-					<tr>
-						<td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-							<div className="flex items-center">
-								<div className="flex-shrink-0 w-10 h-10">
-									<img
-										className="w-full h-full rounded-full"
-										src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.2&w=160&h=160&q=80"
-										alt=""
-									/>
-								</div>
-								<div className="ml-3">
-									<p className="text-gray-900 whitespace-no-wrap">Blake Bowman</p>
-								</div>
-							</div>
-						</td>
-						<td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-							<p className="text-gray-900 whitespace-no-wrap">Editor</p>
-						</td>
-						<td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-							<p className="text-gray-900 whitespace-no-wrap">Jan 01, 2020</p>
-						</td>
-						<td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-							<span className="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight">
-								<span aria-hidden className="absolute inset-0 bg-green-200 opacity-50 rounded-full"></span>
-								<span className="relative">Activo</span>
-							</span>
-						</td>
-					</tr>
-					<tr>
-						<td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-							<div className="flex items-center">
-								<div className="flex-shrink-0 w-10 h-10">
-									<img
-										className="w-full h-full rounded-full"
-										src="https://images.unsplash.com/photo-1540845511934-7721dd7adec3?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.2&w=160&h=160&q=80"
-										alt=""
-									/>
-								</div>
-								<div className="ml-3">
-									<p className="text-gray-900 whitespace-no-wrap">Dana Moore</p>
-								</div>
-							</div>
-						</td>
-						<td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-							<p className="text-gray-900 whitespace-no-wrap">Editor</p>
-						</td>
-						<td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-							<p className="text-gray-900 whitespace-no-wrap">Jan 10, 2020</p>
-						</td>
-						<td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-							<span className="relative inline-block px-3 py-1 font-semibold text-orange-900 leading-tight">
-								<span aria-hidden className="absolute inset-0 bg-orange-200 opacity-50 rounded-full"></span>
-								<span className="relative">Suspended</span>
-							</span>
-						</td>
-					</tr>
-					<tr>
-						<td className="px-5 py-5 bg-white text-sm">
-							<div className="flex items-center">
-								<div className="flex-shrink-0 w-10 h-10">
-									<img
-										className="w-full h-full rounded-full"
-										src="https://images.unsplash.com/photo-1522609925277-66fea332c575?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.2&h=160&w=160&q=80"
-										alt=""
-									/>
-								</div>
-								<div className="ml-3">
-									<p className="text-gray-900 whitespace-no-wrap">Alonzo Cox</p>
-								</div>
-							</div>
-						</td>
-						<td className="px-5 py-5 bg-white text-sm">
-							<p className="text-gray-900 whitespace-no-wrap">Admin</p>
-						</td>
-						<td className="px-5 py-5 bg-white text-sm">
-							<p className="text-gray-900 whitespace-no-wrap">Jan 18, 2020</p>
-						</td>
-						<td className="px-5 py-5 bg-white text-sm">
-							<span className="relative inline-block px-3 py-1 font-semibold text-red-900 leading-tight">
-								<span aria-hidden className="absolute inset-0 bg-red-200 opacity-50 rounded-full"></span>
-								<span className="relative">Inactive</span>
-							</span>
-						</td>
-					</tr>
-				</tbody>
-			</table>
+		<div className="w-5/6 mt-4 m-auto flex flex-col lg:flex-row ">
+			<div className="lg:w-1/6 w-full px-2 mb-4">
+				<div className="flex flex-col">
+					<label className="font-medium" htmlFor="search">
+						Tìm kiếm
+					</label>
+					<input onChange={searchHandler} type="text" name="search" className="border focus:border-blue-300 px-2 py-1 rounded-md" />
+				</div>
+				<div className="flex flex-col">
+					<label className="font-medium" htmlFor="search">
+						Trạng thái
+					</label>
+					<select onChange={statusHandler} className="border focus:outline-none px-2 py-1 rounded-md" name="isDelete">
+						<option value="">Tất cả</option>
+						<option value="false">Hoạt động</option>
+						<option value="true">Vô hiệu hóa</option>
+					</select>
+				</div>
+			</div>
+			<div className="w-5/6 px-2">
+				<AccountTable accounts={cloneAccounts} />
+			</div>
 		</div>
 	);
 }

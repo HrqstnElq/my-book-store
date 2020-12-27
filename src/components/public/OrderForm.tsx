@@ -17,7 +17,6 @@ export default function OrderForm(props: {books: any[]; setMode: Function}) {
 	const dispatch = useDispatch();
 
 	const history = useHistory();
-	console.log("history", history);
 
 	useEffect(() => {
 		createOrder(books).then((res: any) => {
@@ -30,7 +29,6 @@ export default function OrderForm(props: {books: any[]; setMode: Function}) {
 	}, [books]);
 
 	const onSubmit = (data: any) => {
-		console.log(data);
 		loadingRef?.current?.staticStart();
 		if (user.current.token) {
 			addOrder(user.current.token, {

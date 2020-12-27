@@ -26,7 +26,6 @@ export const Login = createAsyncThunk("user/login", async (params: {username: st
 
 				return userInfo;
 			} else {
-				console.log(info.data.message);
 				return rejectWithValue({
 					error: info.data.message,
 				});

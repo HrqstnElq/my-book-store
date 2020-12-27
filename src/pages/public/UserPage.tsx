@@ -1,9 +1,8 @@
-import {ChangePasswordAPI, UpdateAccount} from "api/userApi";
+import {UpdateAccount} from "api/userApi";
 import ChangePassword from "components/ChangePassword";
 import React, {useRef, useState} from "react";
 import {useForm} from "react-hook-form";
 import {useDispatch, useSelector} from "react-redux";
-import LoadingBar from "react-top-loading-bar";
 import {Update} from "store/userSlice";
 
 const classNames = require("classnames");

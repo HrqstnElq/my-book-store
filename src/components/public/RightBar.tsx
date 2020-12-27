@@ -19,8 +19,6 @@ export default function RightBar() {
 		});
 	}, []);
 
-	console.log(user);
-
 	const ClickHandler = () => {
 		const carts = [
 			{bookId: 3, quantity: 4},

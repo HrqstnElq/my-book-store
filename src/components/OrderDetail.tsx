@@ -58,9 +58,7 @@ export default function OrderDetail(props: {admin: boolean; mode: {type: string;
 				orderStatus: nextOrderStatus,
 			};
 
-			updateOrder(mode.data.id, orderPost, user?.current.token).then((res) => {
-				console.log(res);
-			});
+			updateOrder(mode.data.id, orderPost, user?.current.token).then((res) => {});
 		}
 	};
 

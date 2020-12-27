@@ -27,7 +27,7 @@ export default function Book(props: {book: any}) {
 			<img className="w-32 h-48 mr-4 object-cover transform hover:scale-110 duration-100" src={book.image} alt="" />
 			<div className="flex flex-col justify-between h-48">
 				<div>
-					<Link to={`/public/book/${book.id}`} className="text-xl font-semibold text-indigo-900">
+					<Link title={book.name} to={`/public/book/${book.id}`} className="text-xl font-semibold text-indigo-900">
 						{book.name.length > 30 ? book.name.slice(0, 30) + "..." : book.name}
 					</Link>
 					<p>{book.author}</p>

@@ -28,7 +28,6 @@ export default function LoginForm() {
 			syncCart(userState.current.token, false, listCart).then((res: any) => {
 				if (res.data.success) {
 					const result = res.data.payload;
-					console.log(result);
 					window.localStorage.setItem("cart", JSON.stringify(result));
 				}
 				window.location.href = "/";
@@ -37,7 +36,6 @@ export default function LoginForm() {
 			getCart(userState.current.token).then((res: any) => {
 				if (res.data.success) {
 					const result = res.data.payload;
-					console.log(result);
 					window.localStorage.setItem("cart", JSON.stringify(result));
 				}
 				window.location.href = "/";
@@ -58,7 +56,6 @@ export default function LoginForm() {
 			const actionResult = await dispatch(Login(loginData));
 			try {
 				const result = unwrapResult(actionResult as any);
-				console.log(result);
 				if (result.token) {
 					if (saveMe) window.localStorage.setItem("login", JSON.stringify(loginData));
 					else window.localStorage.removeItem("login");
@@ -66,7 +63,6 @@ export default function LoginForm() {
 					if (redirectUrl) window.location.href = redirectUrl;
 				}
 			} catch (err) {
-				console.log(err.error);
 				setErr(err.error);
 				if (loadingRef.current) loadingRef.current.complete();
 			}
