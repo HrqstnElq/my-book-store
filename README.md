@@ -70,21 +70,37 @@ username : sales, password : 1 (role sales)
 ### C. Cấu trúc thư mục 
 
 src 
+
 ├───api - chứa các api gọi đến server gửi và lấy dữ liệu
+
 ├───assets  - chứa các tập tin css, image
+
 │   ├───images 
+
 │   │   ├───admin
+
 │   │   └───public
+
 │   │       └───banner
+
 │   └───styles - chứa các tập tin css 
+
 ├───common - chứa các hàm dùng thường xuyên được sử dụng 
+
 ├───components  - chứa các component/ bên ngoài hai thư mục dưới là dùng chung cho cả hai trang
+
 │   ├───admin - chứa các component của trang admin
+
 │   └───public - chứa các component của trang public
+
 ├───pages - chứa các trang web(component chứa các component nhỏ hơn )
+
 │   ├───admin - chứa các trang web của trang admin
+
 │   └───public - chứa các trang web của trang public 
+
 └───store - chứa file cấu hình store của redux 
+
 
 
 
