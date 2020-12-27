@@ -2,7 +2,6 @@ import {unwrapResult} from "@reduxjs/toolkit";
 import {Cart, getCart, syncCart} from "api/cartApi";
 import React, {useEffect, useRef, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {Link} from "react-router-dom";
 import LoadingBar from "react-top-loading-bar";
 import {Login} from "store/userSlice";
 
@@ -103,9 +102,9 @@ export default function LoginForm() {
 							Mật khẩu
 						</label>
 						<div className="text-blue-400">
-							<Link tabIndex={-1} to="#">
+							<a className="focus:outline-none" tabIndex={-1} href="mailto:18521531@gm.uit.edu.vn">
 								Quên mật khẩu
-							</Link>
+							</a>
 						</div>
 					</div>
 					<input

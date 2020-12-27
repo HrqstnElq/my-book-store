@@ -92,7 +92,9 @@ export default function OrderPage() {
 								<input className="w-full md:text-base text-xs" type="date" value={order.dateCreate.split("T")[0]} disabled />
 							</div>
 							<div className="w-1/6 px-2 hidden md:block">
-								{(isDelete && <label className={labels[4]}>Đã hủy</label>) || <label className={labels[0]}>{statuses[0]}</label>}
+								{(isDelete && <label className={labels[4]}>Đã hủy</label>) || (
+									<label className={labels[order.orderStatus]}>{statuses[order.orderStatus]}</label>
+								)}
 							</div>
 							<div className="w-1/3 px-2 text-indigo-800">{VND(order.totalPrice)}</div>
 							<div className="w-1/12 pl-2 md:space-x-2">

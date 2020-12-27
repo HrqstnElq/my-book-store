@@ -1,15 +1,20 @@
 import {GetAllUser} from "api/userApi";
 import AccountTable from "components/admin/AccountTable";
-import {ChangeEvent, useEffect, useState} from "react";
+import React, {ChangeEvent, useEffect, useRef, useState} from "react";
 import {useSelector} from "react-redux";
+import LoadingBar from "react-top-loading-bar";
 
 export default function CustomerPage() {
 	const [accounts, setAccounts] = useState<any[]>([]);
+	const [reload, setReload] = useState("");
 	const [cloneAccounts, setCloneAccounts] = useState<any[]>([]);
 	const user = useSelector((state: any) => state.user);
 	const [filter, setFilter] = useState({search: "", isDelete: ""});
+	const loadingRef = useRef<any>(null);
 
 	useEffect(() => {
+		loadingRef?.current?.staticStart();
+
 		if (user.current.token) {
 			GetAllUser(user.current.token).then((res: any) => {
 				if (res.data.success) {
@@ -17,9 +22,10 @@ export default function CustomerPage() {
 				} else {
 					setAccounts([]);
 				}
+				loadingRef.current.complete();
 			});
 		}
-	}, [user]);
+	}, [user, reload]);
 
 	useEffect(() => {
 		setCloneAccounts(accounts);
@@ -56,6 +62,8 @@ export default function CustomerPage() {
 
 	return (
 		<div className="w-5/6 mt-4 m-auto flex flex-col lg:flex-row ">
+			<LoadingBar color="#f11946" ref={loadingRef} waitingTime={500} />
+
 			<div className="lg:w-1/6 w-full px-2 mb-4">
 				<div className="flex flex-col">
 					<label className="font-medium" htmlFor="search">
@@ -75,7 +83,7 @@ export default function CustomerPage() {
 				</div>
 			</div>
 			<div className="w-5/6 px-2">
-				<AccountTable accounts={cloneAccounts} />
+				<AccountTable accounts={cloneAccounts} reload={setReload} />
 			</div>
 		</div>
 	);

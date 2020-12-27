@@ -49,3 +49,46 @@ export const GetAllUser = (token: string) =>
 			Authorization: "Bearer " + token,
 		},
 	});
+
+export const DeleteAccount = (token: string, accountId: string) =>
+	Axios.delete("/api/admin/account", {
+		headers: {
+			Authorization: "Bearer " + token,
+		},
+		params: {
+			id: accountId,
+		},
+	});
+
+export const RestoreAccount = (token: string, accountId: string) =>
+	Axios.get("/api/admin/account/restore", {
+		headers: {
+			Authorization: "Bearer " + token,
+		},
+		params: {
+			id: accountId,
+		},
+	});
+
+export const ResetPassword = (token: string, accountId: string, password: string) =>
+	Axios.post("/api/account/resetpassword", null, {
+		headers: {Authorization: "Bearer " + token},
+		params: {
+			userId: accountId,
+			newPassword: password,
+		},
+	});
+
+export const GetAllSales = (token: string) =>
+	Axios.get("/api/admin/account/sales/all", {
+		headers: {
+			Authorization: "Bearer " + token,
+		},
+	});
+
+export const CreateSales = (data: RegisterData, token: string) =>
+	Axios.post("/api/admin/account/sales", data, {
+		headers: {
+			Authorization: "Bearer " + token,
+		},
+	});

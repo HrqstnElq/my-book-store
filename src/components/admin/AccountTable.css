@@ -1,0 +1,7 @@
+.account-menu {
+	display: none;
+}
+
+.account-detail:hover .account-menu {
+	display: block;
+}

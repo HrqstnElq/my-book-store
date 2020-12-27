@@ -1,11 +1,14 @@
-import {Register} from "api/userApi";
+import {CreateSales, Register} from "api/userApi";
 import React, {useRef, useState} from "react";
 import {useForm} from "react-hook-form";
+import {useSelector} from "react-redux";
 import LoadingBar from "react-top-loading-bar";
 
-export default function RegisterForm() {
+export default function RegisterForm(props: {isSale?: boolean; setForm?: Function}) {
+	const {isSale, setForm} = props;
 	const {register, errors, handleSubmit} = useForm();
 	const [err, setErr] = useState("");
+	const user = useSelector((state: any) => state.user);
 
 	const loadingRef = useRef<any>(null);
 
@@ -14,16 +17,22 @@ export default function RegisterForm() {
 			setErr("Mật khẩu không khớp nhau");
 		} else {
 			setErr("");
-
 			loadingRef.current.staticStart();
-			Register(data).then((res: any) => {
-				if (res.data.success) {
-					window.location.href = "/login";
-				} else {
-					setErr(res.data.message);
-				}
-				loadingRef.current.complete();
-			});
+			if (isSale === true) {
+				CreateSales(data, user.current.token).then((res) => {
+					alert(res.data.message);
+					if (res.data.success && setForm) setForm(null);
+				});
+			} else {
+				Register(data).then((res: any) => {
+					if (res.data.success) {
+						window.location.href = "/login";
+					} else {
+						setErr(res.data.message);
+					}
+					loadingRef.current.complete();
+				});
+			}
 		}
 	};
 	return (
@@ -36,7 +45,10 @@ export default function RegisterForm() {
 							Tên đăng nhập
 						</label>
 						<input
-							ref={register}
+							ref={register({
+								required: {value: true, message: "Vui lòng nhập username"},
+								pattern: {value: /^[a-zA-Z0-9]+$/, message: "Tên đăng nhập được chứa kí tự đặc biệt"},
+							})}
 							required
 							type="text"
 							name="username"
@@ -51,7 +63,6 @@ export default function RegisterForm() {
 						<input
 							ref={register({
 								required: {value: true, message: "Vui lòng nhập tên"},
-								pattern: {value: /^[A-Za-z]+$/i, message: "Tên không được chứa số và kí tự đặc biệt"},
 								minLength: {value: 6, message: "Tên phải dài hơn 6 kí tự"},
 								maxLength: {value: 100, message: "Tên quá dài"},
 							})}
@@ -172,6 +183,7 @@ export default function RegisterForm() {
 					<span className=" text-red-600 text-sm">{err} </span>
 					<span className=" text-red-600 text-sm">{errors.phoneNumber?.message} </span>
 					<span className=" text-red-600 text-sm">{errors.fullName?.message} </span>
+					<span className=" text-red-600 text-sm">{errors.username?.message} </span>
 				</div>
 			</div>
 			<button className="w-full mt-3 px-10 py-3 bg-pink-500 hover:bg-pink-600 focus:outline-none text-white font-medium rounded-xl mb-10">
