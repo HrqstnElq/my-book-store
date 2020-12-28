@@ -33,7 +33,7 @@ export default function RightBar() {
 			<div className="right-bar--user mb-4 float-right flex flex-row space-x-4">
 				<Link to="/public/cart" className="cart text-2xl relative">
 					<i className="fal fa-shopping-cart font-medium text-gray-600"></i>
-					<div className="absolute top-0 -right-2 bg-blue-500 w-4 h-4 rounded-full flex">
+					<div className="absolute top-0 -right-2 bg-indigo-500 w-4 h-4 rounded-full flex">
 						<p className="text-xs m-auto text-white font-medium">{cart.length}</p>
 					</div>
 				</Link>
@@ -42,7 +42,7 @@ export default function RightBar() {
 					<>
 						<button onClick={ClickHandler} className="alert text-2xl relative">
 							<i className="fal fa-bell font-medium text-gray-600"></i>
-							<div className="absolute top-0 -right-2 bg-blue-500 w-4 h-4 rounded-full flex">
+							<div className="absolute top-0 -right-2 bg-indigo-500 w-4 h-4 rounded-full flex">
 								<p className="text-xs m-auto text-white font-medium">4</p>
 							</div>
 						</button>
@@ -97,7 +97,7 @@ export default function RightBar() {
 						</button>
 						<button
 							onClick={() => (window.location.href = "/login?register")}
-							className="px-3 py-2 bg-blue-700 hover:bg-blue-800 rounded-md text-white">
+							className="px-3 py-2 bg-indigo-700 hover:bg-indigo-800 rounded-md text-white">
 							Đăng kí
 						</button>
 					</div>
@@ -106,7 +106,7 @@ export default function RightBar() {
 			<div className="clear-right"></div>
 			<div className="right-bar--title">
 				<h3 className="text-lg font-bold ">Sách nổi bật trong tuần</h3>
-				<div className="h-1 w-full bg-blue-900 rounded-full"></div>
+				<div className="h-1 w-full bg-indigo-900 rounded-full"></div>
 			</div>
 			<div className="right-bar--books">
 				{books.map((book, index) => (

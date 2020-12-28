@@ -1,6 +1,7 @@
 /* eslint-disable eqeqeq */
 import React from "react";
 import {Link} from "react-router-dom";
+import ScrollTop from "./ScrollTop";
 
 const classNames = require("classnames");
 
@@ -31,6 +32,7 @@ export default function CategoryBar(props: {categories: any; current: any; setCu
 					</li>
 				))}
 			</ul>
+			<ScrollTop />
 		</div>
 	);
 }

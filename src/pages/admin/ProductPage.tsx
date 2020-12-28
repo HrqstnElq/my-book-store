@@ -111,7 +111,7 @@ export default function ProductPage() {
 				<button
 					onClick={() => setBookAction({...bookAction, action: "ADD"})}
 					className="fixed bottom-8 right-8 w-12 h-12 bg-purple-700 rounded-full shadow-md cursor-pointer hover:bg-purple-800">
-					<i className="fas fa-plus font-bold text-white"></i>
+					<i title="Thêm sản phẩm" className="fas fa-plus font-bold text-white"></i>
 				</button>
 			)}
 		</div>

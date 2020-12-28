@@ -52,7 +52,7 @@ export default function AccountTable(props: {accounts: any[]; reload: Function})
 	return (
 		<>
 			{detail}
-			<table className="min-w-full leading-normal">
+			<table className="min-w-full leading-normal mt-4">
 				<thead>
 					<tr>
 						<th className="px-5 py-2 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">

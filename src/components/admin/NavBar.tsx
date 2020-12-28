@@ -118,12 +118,6 @@ export default function NavBar() {
 								role="menu"
 								aria-orientation="vertical"
 								aria-labelledby="user-menu">
-								<Link to="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">
-									Hồ sơ
-								</Link>
-								<Link to="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">
-									Cài đặt
-								</Link>
 								<Link to="/logout" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">
 									Đăng xuất
 								</Link>

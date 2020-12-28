@@ -2,6 +2,7 @@ import {getTopBooks} from "api/productApi";
 import Pagination from "components/Pagination";
 import BannerSlide from "components/public/BannerSlide";
 import GridBook from "components/public/GridBook";
+import ScrollTop from "components/public/ScrollTop";
 import SearchBar from "components/public/SearchBar";
 import React, {useEffect, useRef, useState} from "react";
 import LoadingBar from "react-top-loading-bar";
@@ -50,6 +51,7 @@ export default function HighLightPage() {
 				<GridBook books={paging.books} />
 				<Pagination size={8} query={query} setQuery={setQuery} totalPage={paging.totalPage} />
 			</section>
+			<ScrollTop />
 		</div>
 	);
 }

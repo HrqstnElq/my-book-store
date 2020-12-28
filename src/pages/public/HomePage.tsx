@@ -3,6 +3,7 @@ import {getBooksPaging, getTopBooks} from "api/productApi";
 import BannerSlide from "components/public/BannerSlide";
 import CategoryBar from "components/public/CategoryBar";
 import GridBook from "components/public/GridBook";
+import ScrollTop from "components/public/ScrollTop";
 import SearchBar from "components/public/SearchBar";
 import React, {useEffect, useRef, useState} from "react";
 import {Link} from "react-router-dom";
@@ -44,7 +45,6 @@ export default function HomePage() {
 	return (
 		<div className="px-10 lg:px-20 xl:px-32 mt-5 flex-1 max-w-screen-lg">
 			<LoadingBar color="#f11946" ref={loadingRef} waitingTime={500} />
-
 			<SearchBar />
 			<BannerSlide />
 			<section className="my-4">
@@ -61,6 +61,7 @@ export default function HomePage() {
 				<CategoryBar current={currentCategory} setCurrent={setCurrentCategory} categories={categories} />
 				<GridBook books={books} />
 			</section>
+			<ScrollTop />
 		</div>
 	);
 }

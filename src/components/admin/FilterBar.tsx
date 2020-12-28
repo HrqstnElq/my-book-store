@@ -1,12 +1,14 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import {getAllCategory} from "api/categoryApi";
-import {FormEvent, useEffect, useRef, useState} from "react";
+import React, {FormEvent, useEffect, useRef, useState} from "react";
+import CategoryForm from "./CategoryForm";
 
 export default function FilterBar(props: {query: any; setQuery: Function; categoryId: number}) {
 	const {query, setQuery, categoryId} = props;
 	const [categories, setCategory] = useState([]);
 	const searchRef = useRef<HTMLInputElement>(null);
 	const [optionState, setOptionState] = useState(categoryId);
+	const [categoryFor, setCategoryFrom] = useState<any>();
 
 	const [dsc, setDsc] = useState(false);
 	const [isSuspend, setIsSuspend] = useState(false);
@@ -61,8 +63,13 @@ export default function FilterBar(props: {query: any; setQuery: Function; catego
 		});
 	};
 
+	const categorieClickHandler = (e: any) => {
+		setCategoryFrom(<CategoryForm setForm={setCategoryFrom} />);
+	};
+
 	return (
 		<form autoComplete="off" className="" onSubmit={SubmitHandler}>
+			{categoryFor}
 			<div className="flex flex-col">
 				<label className="font-semibold" htmlFor="search">
 					Tìm kiếm
@@ -92,6 +99,9 @@ export default function FilterBar(props: {query: any; setQuery: Function; catego
 						</option>
 					))}
 				</select>
+				<button onClick={categorieClickHandler} className="w-52 mt-2 p-1 px-2 focus:outline-none rounded-md bg-gray-100">
+					Quản lí danh mục
+				</button>
 			</div>
 
 			<div className="mt-4 flex flex-col">

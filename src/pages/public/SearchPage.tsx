@@ -1,6 +1,7 @@
 import {getBooksPaging} from "api/productApi";
 import Pagination from "components/Pagination";
 import GridBook from "components/public/GridBook";
+import ScrollTop from "components/public/ScrollTop";
 import SearchBar from "components/public/SearchBar";
 import SortBar from "components/public/SortBar";
 import React, {useEffect, useRef, useState} from "react";
@@ -35,6 +36,7 @@ export default function SearchPage() {
 			<SortBar query={query} setQuery={setQuery} />
 			<GridBook books={paging.books} />
 			<Pagination size={query.size} totalPage={paging.totalPage} query={query} setQuery={setQuery} />
+			<ScrollTop />
 		</div>
 	);
 }

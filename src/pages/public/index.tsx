@@ -1,3 +1,4 @@
+import Footer from "components/public/Footer";
 import NavBar from "components/public/NavBar";
 import React from "react";
 import {Redirect, Route, Switch, useRouteMatch} from "react-router-dom";
@@ -15,14 +16,6 @@ import UserPage from "./UserPage";
 
 export default function PublicPage() {
 	const match = useRouteMatch();
-
-	const scrollTop = () => {
-		window.scrollTo({
-			top: 0,
-			behavior: "smooth",
-		});
-	};
-
 	return (
 		<div className="public-page">
 			<NavBar />
@@ -44,11 +37,7 @@ export default function PublicPage() {
 				</Switch>
 				<RightBar />
 			</div>
-			<button
-				onClick={scrollTop}
-				className="fixed bottom-4 right-4 w-12 h-12 bg-gray-400 hover:bg-gray-300 transition-colors bg-opacity-30 rounded-full">
-				<i className="fal fa-angle-up"></i>
-			</button>
+			<Footer />
 		</div>
 	);
 }
