@@ -26,6 +26,8 @@ export default function OrderPage() {
 	//luu ma don hang muon xoa
 	const [orderId, setOrderId] = useState<any>(null);
 
+	console.log("order : ", orders);
+
 	useEffect(() => {
 		window.scrollTo(0, 0);
 		loadingRef?.current?.staticStart();

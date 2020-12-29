@@ -63,7 +63,7 @@ export default function FilterBar(props: {query: any; setQuery: Function; catego
 		});
 	};
 
-	const categorieClickHandler = (e: any) => {
+	const categoriesClickHandler = (e: any) => {
 		setCategoryFrom(<CategoryForm setForm={setCategoryFrom} />);
 	};
 
@@ -99,9 +99,9 @@ export default function FilterBar(props: {query: any; setQuery: Function; catego
 						</option>
 					))}
 				</select>
-				<button onClick={categorieClickHandler} className="w-52 mt-2 p-1 px-2 focus:outline-none rounded-md bg-gray-100">
+				<div onClick={categoriesClickHandler} className="w-52 mt-2 p-1 px-2 focus:outline-none rounded-md bg-gray-100 cursor-pointer">
 					Quản lí danh mục
-				</button>
+				</div>
 			</div>
 
 			<div className="mt-4 flex flex-col">
