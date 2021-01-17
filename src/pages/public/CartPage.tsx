@@ -58,7 +58,7 @@ export default function CartPage() {
 						<div key={index} className="flex justify-between my-4">
 							<div className="w-2/5 flex space-x-4">
 								<img src={book.bookImage} alt="" style={{height: "100px"}} />
-								<Link to={`/public/book/${book.bookId}`} className="font-medium">
+								<Link to={`/book-store/book/${book.bookId}`} className="font-medium">
 									{book.bookName}
 								</Link>
 							</div>

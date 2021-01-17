@@ -31,7 +31,7 @@ export default function RightBar() {
 	return (
 		<div className="right-bar pr-4 pt-4 sticky hidden xl:block top-0 w-80 h-screen">
 			<div className="right-bar--user mb-4 float-right flex flex-row space-x-4">
-				<Link to="/public/cart" className="cart text-2xl relative">
+				<Link to="/book-store/cart" className="cart text-2xl relative">
 					<i className="fal fa-shopping-cart font-medium text-gray-600"></i>
 					<div className="absolute top-0 -right-2 bg-indigo-500 w-4 h-4 rounded-full flex">
 						<p className="text-xs m-auto text-white font-medium">{cart.length}</p>
@@ -65,14 +65,14 @@ export default function RightBar() {
 								aria-orientation="vertical"
 								aria-labelledby="user-menu">
 								<Link
-									to="/public/order"
+									to="/book-store/order"
 									onClick={() => setActive(false)}
 									className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
 									role="menuitem">
 									Đơn hàng
 								</Link>
 								<Link
-									to="/public/account"
+									to="/book-store/account"
 									onClick={() => setActive(false)}
 									className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
 									role="menuitem">

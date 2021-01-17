@@ -18,17 +18,17 @@ export default function NavBar() {
 				<div className="-mb-px flex justify-between">
 					<div className="flex">
 						<NavLink
-							to="/public/home"
+							to="/book-store/home"
 							className="no-underline text-teal-dark border-b-2 uppercase border-transparent tracking-wide font-bold text-xs py-3 mr-8">
 							Trang chủ
 						</NavLink>
 						<NavLink
-							to="/public/highlight"
+							to="/book-store/highlight"
 							className="no-underline text-grey-dark border-b-2 border-transparent uppercase tracking-wide font-bold text-xs py-3 mr-8">
 							Nổi bật
 						</NavLink>
 						<NavLink
-							to="/public/category"
+							to="/book-store/category"
 							className="no-underline text-grey-dark border-b-2 border-transparent uppercase tracking-wide font-bold text-xs py-3 mr-8">
 							Danh mục
 						</NavLink>
@@ -57,21 +57,21 @@ export default function NavBar() {
 							role="menu"
 							aria-orientation="vertical"
 							aria-labelledby="user-menu">
-							<Link to="/public/cart" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">
+							<Link to="/book-store/cart" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">
 								Giỏ hàng
 							</Link>
 							{(user.current.token && (
 								<>
 									<Link
 										onClick={() => setActive(!active)}
-										to="/public/order"
+										to="/book-store/order"
 										className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
 										role="menuitem">
 										Đơn hàng
 									</Link>
 									<Link
 										onClick={() => setActive(!active)}
-										to="/public/account"
+										to="/book-store/account"
 										className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
 										role="menuitem">
 										Hồ sơ

@@ -51,7 +51,7 @@ export default function HomePage() {
 				<h2 className="text-i text-indigo-900 text-2xl font-bold">Sách nổi bật</h2>
 				<GridBook books={topBooks} />
 				<div className="clearfix">
-					<Link to="/public/highlight" className="float-right font-bold" href="#">
+					<Link to="/book-store/highlight" className="float-right font-bold" href="#">
 						Xem thêm ...
 					</Link>
 				</div>

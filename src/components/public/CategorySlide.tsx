@@ -7,13 +7,13 @@ export default function CategorySlide(props: {categories: any; current: any; set
 	const {categories, current, setCurrent} = props;
 
 	const images = [
-		{img: "/images/category/1.png", color: "yellow-500"},
-		{img: "/images/category/2.png", color: "green-400"},
-		{img: "/images/category/3.png", color: "purple-400"},
-		{img: "/images/category/4.png", color: "yellow-400"},
-		{img: "/images/category/5.png", color: "blue-800"},
-		{img: "/images/category/6.png", color: "gray-400"},
-		{img: "/images/category/7.png", color: "red-400"},
+		{img: "/images/category/1.png", color: "bg-yellow-500"},
+		{img: "/images/category/2.png", color: "bg-green-400"},
+		{img: "/images/category/3.png", color: "bg-purple-400"},
+		{img: "/images/category/4.png", color: "bg-yellow-400"},
+		{img: "/images/category/5.png", color: "bg-blue-800"},
+		{img: "/images/category/6.png", color: "bg-gray-400"},
+		{img: "/images/category/7.png", color: "bg-red-400"},
 	];
 
 	var settings = {
@@ -31,7 +31,7 @@ export default function CategorySlide(props: {categories: any; current: any; set
 			{categories.map((category: any) => (
 				<div
 					key={category.id}
-					className={`bg-${images[(category.id % 8) - 1].color} rounded-xl focus:outline-none focus:shadow-lg transform focus:scale-110`}>
+					className={`${images[(category.id % 8) - 1].color} rounded-xl focus:outline-none focus:shadow-lg transform focus:scale-110`}>
 					<div className="flex flex-col items-center p-2 w-32 h-44" onClick={() => setCurrent({...current, categoryId: category.id})}>
 						<div className="flex justify-center pointer-events-none">
 							<img className="m-5" src={images[(category.id % 8) - 1].img} alt="" style={{height: "80px"}} />

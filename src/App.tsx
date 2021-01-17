@@ -18,12 +18,12 @@ function App() {
 					<Redirect to="/admin"></Redirect>
 				)}
 			</Route>
-			<Route path="/public">
+			<Route path="/book-store">
 				{((userState.current.role === "admin" || userState.current.role === "sales") && <Redirect to="/admin"></Redirect>) || <PublicPage />}
 			</Route>
 			<Route path="/admin">
 				{(userState.current.token && (userState.current.role === "admin" || userState.current.role === "sales") && <AdminPage />) || (
-					<Redirect to="/public"></Redirect>
+					<Redirect to="/book-store"></Redirect>
 				)}
 			</Route>
 			<Route exact path="/login" component={LoginPage}></Route>

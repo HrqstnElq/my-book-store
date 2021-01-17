@@ -28,7 +28,7 @@ export default function PublicPage() {
 					<Route exact path={`${match.url}/home`} component={HomePage} />
 					<Route exact path={`${match.url}/search`} component={SearchPage} />
 					<Route exact path={`${match.url}/highlight`} component={HighLightPage} />
-					<Route exact path={`${match.url}/book/:id`} component={BookDetailPage} />
+					<Route exact path={`${match.url}/book/:url`} component={BookDetailPage} />
 					<Route exact path={`${match.url}/category`} component={CategoryPage} />
 					<Route exact path={`${match.url}/cart`} component={CartPage} />
 					<Route exact path={`${match.url}/order`} component={OrderPage} />

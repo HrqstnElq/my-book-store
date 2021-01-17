@@ -15,6 +15,8 @@ export const getTopBooks = (option: string, page: number, size: number) =>
 
 export const getBooksDetail = (bookId: number) => Axios.get(`/api/book/${bookId}`);
 
+export const getBookDetailByUrl = (url: string) => Axios.get(`/api/book/url/${url}`);
+
 export const addBook = (book: any, token: string) =>
 	Axios.post("/api/admin/book", book, {
 		headers: {

@@ -39,7 +39,7 @@ export default function OrderForm(props: {books: any[]; setMode: Function}) {
 			}).then((res: any) => {
 				if (res.data.success) {
 					//neu khong phai dang o tran cart thi se khong clear gio hang
-					if (!history.location.pathname.includes("/book")) {
+					if (!history.location.pathname.includes("/book-store/book")) {
 						dispatch(Clear());
 						clearCart(user.current.token);
 					}

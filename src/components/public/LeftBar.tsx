@@ -11,18 +11,18 @@ export default function LeftBar() {
 						<img className="block m-auto select-none" src="/images/logo.png" alt="" style={{width: "150px", objectFit: "contain"}} />
 					</Link>
 				</div>
-				<NavLink className="hover:bg-blue-100 hover:text-blue-400 px-4 py-2 rounded-xl" to="/public/home">
+				<NavLink className="hover:bg-blue-100 hover:text-blue-400 px-4 py-2 rounded-xl" to="/book-store/home">
 					<i className="fas fa-home-alt mr-2"></i>
 					Trang chủ
 				</NavLink>
-				<NavLink className="hover:bg-blue-100 hover:text-blue-400 px-4 py-2 rounded-xl" to="/public/highlight">
+				<NavLink className="hover:bg-blue-100 hover:text-blue-400 px-4 py-2 rounded-xl" to="/book-store/highlight">
 					<i className="fas fa-fire mr-4"></i>
 					Nổi bật
 				</NavLink>
-				<NavLink className="hover:bg-blue-100 hover:text-blue-400 px-4 py-2 rounded-xl" to="/public/category">
+				<NavLink className="hover:bg-blue-100 hover:text-blue-400 px-4 py-2 rounded-xl" to="/book-store/category">
 					<i className="fas fa-list-alt mr-3"></i>Danh mục
 				</NavLink>
-				<NavLink className="hover:bg-blue-100 hover:text-blue-400 px-4 py-2 rounded-xl" to="/public/search">
+				<NavLink className="hover:bg-blue-100 hover:text-blue-400 px-4 py-2 rounded-xl" to="/book-store/search">
 					<i className="fas fa-search mr-3"></i>Khám phá
 				</NavLink>
 			</div>

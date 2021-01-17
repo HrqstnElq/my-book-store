@@ -5,6 +5,7 @@ export type Book = {
 	bookId: number;
 	bookName: string;
 	bookImage: string;
+	bookUrl: string;
 	price: number;
 	sale: number;
 	quantity: number;

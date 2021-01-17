@@ -17,7 +17,9 @@ export default function Book(props: {book: any}) {
 
 	const addBookHandel = () => {
 		loadingRef?.current?.staticStart();
-		dispatch(AddItem({bookId: book.id, bookName: book.name, bookImage: book.image, price: book.price, sale: book.sale, quantity: 1}));
+		dispatch(
+			AddItem({bookId: book.id, bookName: book.name, bookImage: book.image, price: book.price, bookUrl: book.url, sale: book.sale, quantity: 1})
+		);
 		loadingRef?.current?.complete();
 	};
 
@@ -27,7 +29,7 @@ export default function Book(props: {book: any}) {
 			<img className="w-32 h-48 mr-4 object-cover transform hover:scale-110 duration-100" src={book.image} alt="" />
 			<div className="flex flex-col justify-between h-48">
 				<div>
-					<Link title={book.name} to={`/public/book/${book.id}`} className="text-xl font-semibold text-indigo-900">
+					<Link title={book.name} to={`/book-store/book/${book.url}`} className="text-xl font-semibold text-indigo-900">
 						{book.name.length > 30 ? book.name.slice(0, 30) + "..." : book.name}
 					</Link>
 					<p>{book.author}</p>
@@ -44,7 +46,9 @@ export default function Book(props: {book: any}) {
 						Thêm vào giỏ
 					</button>
 					<button className="shadow rounded-lg p-2 bg-gray-100 hover:bg-gray-200 text-sm">
-						<Link to={{pathname: `/public/book/${book.id}`, state: {starAvg: starAvg, rating_count: book.rating_count}}}>Chi tiết</Link>
+						<Link to={{pathname: `/book-store/book/${book.url}`, state: {starAvg: starAvg, rating_count: book.rating_count}}}>
+							Chi tiết
+						</Link>
 					</button>
 				</div>
 			</div>

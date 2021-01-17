@@ -16,7 +16,7 @@ export default function CategoryBar(props: {categories: any; current: any; setCu
 		<div className="w-full">
 			<div className="flex justify-between font-bold my-4">
 				<h3 className="text-2xl  text-indigo-900">Danh mục</h3>
-				<Link to="/public/category">Tất cả</Link>
+				<Link to="/book-store/category">Tất cả</Link>
 			</div>
 			<ul className="category w-full flex justify-between">
 				{categories.slice(0, 4).map((category: any) => (

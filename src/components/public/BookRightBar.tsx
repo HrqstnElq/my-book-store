@@ -22,9 +22,12 @@ export default function BookRightBar(props: {book: any}) {
 			</div>
 			<div className="book--content ml-2 flex flex-col justify-between" style={{width: "150px"}}>
 				<div>
-					<h3 title={book.name} className="font-medium">
+					<Link
+						to={{pathname: `/book-store/book/${book.url}`, state: {starAvg: starAvg, rating_count: book.rating_count}}}
+						title={book.name}
+						className="font-medium">
 						{book.name.length > 10 ? book.name.slice(0, 15) + "..." : book.name}
-					</h3>
+					</Link>
 					<p className="font-thin text-xs">{book.author}</p>
 					<Rating star={starAvg} count={book.rating_count} color="yellow" />
 					<p className="text-red-700 text-xl font-semibold flex-1">{VND(book.price - book.sale * book.price)}</p>
@@ -41,6 +44,7 @@ export default function BookRightBar(props: {book: any}) {
 									bookImage: book.image,
 									price: book.price,
 									sale: book.sale,
+									bookUrl: book.url,
 									quantity: 1,
 								})
 							);
@@ -50,7 +54,7 @@ export default function BookRightBar(props: {book: any}) {
 						<i className="fas fa-cart-plus"></i>
 					</button>
 					<Link
-						to={{pathname: `/public/book/${book.id}`, state: {starAvg: starAvg, rating_count: book.rating_count}}}
+						to={{pathname: `/book-store/book/${book.url}`, state: {starAvg: starAvg, rating_count: book.rating_count}}}
 						className="px-5 py-1 bg-gray-100 text-black rounded-lg text-sm hover:shadow-md hover:bg-gray-200">
 						<i className="fas fa-info"></i>
 					</Link>

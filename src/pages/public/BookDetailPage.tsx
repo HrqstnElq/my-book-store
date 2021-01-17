@@ -1,4 +1,3 @@
-import {getBooksDetail} from "api/productApi";
 import {PostVote} from "api/RatingApi";
 import Message from "components/public/Message";
 import SearchBar from "components/public/SearchBar";
@@ -10,6 +9,7 @@ import {AddItem} from "store/cartSlice";
 import "./BookDetailPage.css";
 import {VND} from "common/function";
 import OrderForm from "components/public/OrderForm";
+import {getBookDetailByUrl} from "api/productApi";
 
 const classNames = require("classnames");
 
@@ -42,16 +42,18 @@ export default function BookDetailPage(props: any) {
 	}, [book, mode]);
 
 	useEffect(() => {
+		window.scrollTo(0, 0);
+
 		loadingRef?.current?.staticStart();
-		getBooksDetail(props.match.params.id).then((res) => {
+		getBookDetailByUrl(props.match.params.url).then((res) => {
 			if (res.data.success) setBook(res.data.payload.book);
 			else setBook(null);
 			loadingRef?.current?.complete();
 		});
-	}, [props.match.params.id, mode]);
+	}, [props.match.params.url, mode]);
 
 	useEffect(() => {
-		if (mode === "Login") window.location.href = "/login?return=public/book/1";
+		if (mode === "Login") window.location.href = `/login?return=public/book/${book.url}`;
 	});
 
 	const buyClickHandler = () => {
@@ -149,6 +151,7 @@ export default function BookDetailPage(props: any) {
 													price: book.price,
 													sale: book.sale,
 													quantity: quantity,
+													bookUrl: book.url,
 												})
 											);
 											loadingRef?.current?.complete();

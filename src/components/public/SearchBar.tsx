@@ -22,9 +22,9 @@ function SearchBar(props: {query?: any; setQuery?: Function}) {
 	const submitHandler = (event: any) => {
 		event.preventDefault();
 
-		if (history.location.pathname !== "/public/search") {
+		if (history.location.pathname !== "/book-store/search") {
 			history.push({
-				pathname: "/public/search",
+				pathname: "/book-store/search",
 				state: {search: inputRef.current?.value},
 			});
 		}
