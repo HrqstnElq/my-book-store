@@ -8,6 +8,7 @@ import SearchBar from "components/public/SearchBar";
 import React, {useEffect, useRef, useState} from "react";
 import {Link} from "react-router-dom";
 import LoadingBar from "react-top-loading-bar";
+import {Helmet} from "react-helmet";
 
 export default function HomePage() {
 	const [topBooks, setTopBooks] = useState([]);
@@ -43,25 +44,30 @@ export default function HomePage() {
 	}, [currentCategory]);
 
 	return (
-		<div className="px-10 lg:px-20 xl:px-32 mt-5 flex-1 max-w-screen-lg">
-			<LoadingBar color="#f11946" ref={loadingRef} waitingTime={500} />
-			<SearchBar />
-			<BannerSlide />
-			<section className="my-4">
-				<h2 className="text-i text-indigo-900 text-2xl font-bold">Sách nổi bật</h2>
-				<GridBook books={topBooks} />
-				<div className="clearfix">
-					<Link to="/book-store/highlight" className="float-right font-bold" href="#">
-						Xem thêm ...
-					</Link>
-				</div>
-			</section>
-			<hr />
-			<section className="w-full">
-				<CategoryBar current={currentCategory} setCurrent={setCurrentCategory} categories={categories} />
-				<GridBook books={books} />
-			</section>
-			<ScrollTop />
-		</div>
+		<>
+			<Helmet>
+				<title>{"Nhà sách An Nguyên"}</title>
+			</Helmet>
+			<div className="px-10 lg:px-20 xl:px-32 mt-5 flex-1 max-w-screen-lg">
+				<LoadingBar color="#f11946" ref={loadingRef} waitingTime={500} />
+				<SearchBar />
+				<BannerSlide />
+				<section className="my-4">
+					<h2 className="text-i text-indigo-900 text-2xl font-bold">Sách nổi bật</h2>
+					<GridBook books={topBooks} />
+					<div className="clearfix">
+						<Link to="/book-store/highlight" className="float-right font-bold" href="#">
+							Xem thêm ...
+						</Link>
+					</div>
+				</section>
+				<hr />
+				<section className="w-full">
+					<CategoryBar current={currentCategory} setCurrent={setCurrentCategory} categories={categories} />
+					<GridBook books={books} />
+				</section>
+				<ScrollTop />
+			</div>
+		</>
 	);
 }

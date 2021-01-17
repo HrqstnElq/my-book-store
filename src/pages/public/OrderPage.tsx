@@ -26,10 +26,11 @@ export default function OrderPage() {
 	//luu ma don hang muon xoa
 	const [orderId, setOrderId] = useState<any>(null);
 
-	console.log("order : ", orders);
-
 	useEffect(() => {
 		window.scrollTo(0, 0);
+	}, []);
+
+	useEffect(() => {
 		loadingRef?.current?.staticStart();
 		getAllOrderUser(user.current.token, isDelete).then((res: any) => {
 			if (res.data.success) {
@@ -40,7 +41,7 @@ export default function OrderPage() {
 
 			loadingRef?.current?.complete();
 		});
-	}, [user, detail, isDelete]);
+	}, [user, detail, isDelete, orderId]);
 
 	const showDetail = (order: any) => {
 		setDetail(<OrderDetail order={order} setMode={setDetail} isDelete={isDelete} />);
@@ -73,7 +74,7 @@ export default function OrderPage() {
 	return (
 		<div className="px-10 lg:px-20 xl:px-32 mt-5 flex-1 w-full max-w-screen-lg">
 			<LoadingBar color="#f11946" ref={loadingRef} waitingTime={500} />
-			{detail}
+			{detail !== "OK" && detail}
 			<div className="space-x-4 font-medium flex items-center">
 				<label htmlFor="isDelete">Đơn hàng đã hủy</label>
 				<input onChange={() => setIsDelete(!isDelete)} type="checkbox" name="isDelete" checked={isDelete} />

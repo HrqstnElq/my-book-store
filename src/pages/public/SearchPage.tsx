@@ -18,7 +18,7 @@ export default function SearchPage() {
 		search: null,
 	});
 
-	useEffect(() => window.scrollTo(0, 0), []);
+	useEffect(() => window.scrollTo(0, 0), [query]);
 
 	useEffect(() => {
 		loadingRef?.current?.staticStart();
