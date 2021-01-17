@@ -19,9 +19,7 @@ export default function LoginForm() {
 
 	if (userState.current.role === "user") {
 		var cart = JSON.parse(Decrypt(localStorage.getItem("cart") || "") || "[]");
-		console.log(cart);
 
-		alert("adad");
 		if (cart.length > 0) {
 			var listCart: Cart[] = [];
 			cart.forEach((book: any) => {
@@ -73,7 +71,7 @@ export default function LoginForm() {
 	};
 
 	useEffect(() => {
-		const loginData = JSON.parse(window.localStorage.getItem("login") || "{}");
+		const loginData = JSON.parse(Decrypt(localStorage.getItem("login") || "{}") || "{}");
 		if (usernameRef.current && passwordRef.current) {
 			usernameRef.current.value = loginData.username ?? "";
 			passwordRef.current.value = loginData.password ?? "";

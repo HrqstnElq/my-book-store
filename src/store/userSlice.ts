@@ -1,5 +1,6 @@
 import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {GetInfo, LoginApi} from "api/userApi";
+import {Decrypt, Encrypt} from "common/function";
 
 export const Login = createAsyncThunk("user/login", async (params: {username: string; password: string}, {rejectWithValue}) => {
 	const loginResult: any = await LoginApi(params.username, params.password);
@@ -21,8 +22,7 @@ export const Login = createAsyncThunk("user/login", async (params: {username: st
 					phonenumber: info.data.payload.phonenumber,
 					address: info.data.payload.address,
 				};
-
-				localStorage.setItem("userInfo", JSON.stringify(userInfo));
+				localStorage.setItem("userInfo", Encrypt(JSON.stringify(userInfo)));
 
 				return userInfo;
 			} else {
@@ -43,7 +43,7 @@ export const Login = createAsyncThunk("user/login", async (params: {username: st
 });
 
 const userInfoInit = JSON.parse(
-	localStorage.getItem("userInfo") ||
+	Decrypt(localStorage.getItem("userInfo") || "{}") ||
 		JSON.stringify({
 			token: "",
 			role: "",
@@ -84,8 +84,7 @@ const userSlice = createSlice({
 				...state.current,
 				...action.payload,
 			};
-
-			localStorage.setItem("userInfo", JSON.stringify(state.current));
+			localStorage.setItem("userInfo", Encrypt(JSON.stringify(state.current)));
 		},
 	},
 	extraReducers: {
