@@ -12,7 +12,6 @@ require("dotenv").config();
 
 function App() {
 	const userState = useSelector((state: any) => state.user);
-
 	return (
 		<>
 			<Helmet>

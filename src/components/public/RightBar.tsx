@@ -1,5 +1,6 @@
 import {syncCart} from "api/cartApi";
 import {getTopBooks} from "api/productApi";
+import {Decrypt} from "common/function";
 import React, {useEffect, useState} from "react";
 import {useSelector} from "react-redux";
 import {Link} from "react-router-dom";
@@ -20,11 +21,7 @@ export default function RightBar() {
 	}, []);
 
 	const ClickHandler = () => {
-		const carts = [
-			{bookId: 3, quantity: 4},
-			{bookId: 3, quantity: 4},
-		];
-
+		const carts = JSON.parse(Decrypt(localStorage.getItem("cart") || "") || "[]");
 		syncCart(user?.current?.token, true, carts);
 	};
 

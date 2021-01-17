@@ -1,5 +1,6 @@
 import {unwrapResult} from "@reduxjs/toolkit";
 import {Cart, getCart, syncCart} from "api/cartApi";
+import {Decrypt, Encrypt} from "common/function";
 import React, {useEffect, useRef, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import LoadingBar from "react-top-loading-bar";
@@ -17,7 +18,7 @@ export default function LoginForm() {
 	const [err, setErr] = useState<String>("");
 
 	if (userState.current.role === "user") {
-		var cart = JSON.parse(window.localStorage.getItem("cart") || "[]");
+		var cart = JSON.parse(Decrypt(localStorage.getItem("cart") || "") || "[]");
 		if (cart.length > 0) {
 			var listCart: Cart[] = [];
 			cart.forEach((book: any) => {
@@ -27,7 +28,7 @@ export default function LoginForm() {
 			syncCart(userState.current.token, false, listCart).then((res: any) => {
 				if (res.data.success) {
 					const result = res.data.payload;
-					window.localStorage.setItem("cart", JSON.stringify(result));
+					localStorage.setItem("cart", Encrypt(JSON.stringify(result)));
 				}
 				window.location.href = "/";
 			});
@@ -35,7 +36,7 @@ export default function LoginForm() {
 			getCart(userState.current.token).then((res: any) => {
 				if (res.data.success) {
 					const result = res.data.payload;
-					window.localStorage.setItem("cart", JSON.stringify(result));
+					localStorage.setItem("cart", Encrypt(JSON.stringify(result)));
 				}
 				window.location.href = "/";
 			});

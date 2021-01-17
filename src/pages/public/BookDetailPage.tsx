@@ -30,8 +30,6 @@ export default function BookDetailPage(props: any) {
 	const user = useSelector((state: any) => state.user);
 	const dispatch = useDispatch();
 
-	console.log(book);
-
 	useEffect(() => {
 		if (book?.comments.length > 0) {
 			let totalStar = 0;

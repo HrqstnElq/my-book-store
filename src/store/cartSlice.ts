@@ -1,5 +1,6 @@
 import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {getBooksDetail} from "api/productApi";
+import {Decrypt, Encrypt} from "common/function";
 
 export type Book = {
 	bookId: number;
@@ -27,7 +28,7 @@ export const Increment = createAsyncThunk("cart/increment", async (params: {book
 	}
 });
 
-const cartInitial = JSON.parse(localStorage.getItem("cart") || "[]");
+const cartInitial = JSON.parse(Decrypt(localStorage.getItem("cart") || "") || "[]");
 
 const cartSlice = createSlice({
 	name: "cart",
@@ -36,27 +37,27 @@ const cartSlice = createSlice({
 		Decrement: (state, action: PayloadAction<{bookId: number}>) => {
 			var index = state.findIndex((item) => item.bookId === action.payload.bookId);
 			if (index > -1 && state[index].quantity > 1) state[index].quantity -= 1;
-			localStorage.setItem("cart", JSON.stringify(state));
+			localStorage.setItem("cart", Encrypt(JSON.stringify(state)));
 		},
 
 		AddItem: (state, action: PayloadAction<Book>) => {
 			var index = state.findIndex((item) => item.bookId === action.payload.bookId);
 			if (index > -1) state[index].quantity += action.payload.quantity;
 			else state.push(action.payload);
-			localStorage.setItem("cart", JSON.stringify(state));
+			localStorage.setItem("cart", Encrypt(JSON.stringify(state)));
 		},
 
 		UpdateItem: (state, action: PayloadAction<Book>) => {
 			var index = state.findIndex((x) => x.bookId === action.payload.bookId);
 			state[index] = action.payload;
 
-			localStorage.setItem("cart", JSON.stringify(state));
+			localStorage.setItem("cart", Encrypt(JSON.stringify(state)));
 		},
 
 		RemoveItem: (state, action: PayloadAction<{bookId: number}>) => {
 			var index = state.findIndex((x) => x.bookId === action.payload.bookId);
 			state.splice(index, 1);
-			localStorage.setItem("cart", JSON.stringify(state));
+			localStorage.setItem("cart", Encrypt(JSON.stringify(state)));
 		},
 
 		Clear: (state) => {
@@ -69,7 +70,7 @@ const cartSlice = createSlice({
 			var index = state.findIndex((item) => item.bookId === action.payload.bookId);
 
 			if (index > -1 && state[index].quantity < action.payload.available) state[index].quantity += 1;
-			localStorage.setItem("cart", JSON.stringify(state));
+			localStorage.setItem("cart", Encrypt(JSON.stringify(state)));
 		},
 	},
 });
