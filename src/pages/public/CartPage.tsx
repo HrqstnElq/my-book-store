@@ -66,7 +66,7 @@ export default function CartPage() {
 						{cart.map((book: any, index: number) => (
 							<div key={index} className="flex justify-between my-4">
 								<div className="w-2/5 flex space-x-4">
-									<img src={book.bookImage} alt="" style={{height: "100px"}} />
+									<img src={book.bookImage} alt="" style={{maxWidth: "100px", height: "150px", objectFit: "cover"}} />
 									<Link to={`/book-store/book/${book.bookId}`} className="font-medium">
 										{book.bookName}
 									</Link>

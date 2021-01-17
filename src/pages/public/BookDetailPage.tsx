@@ -12,6 +12,7 @@ import OrderForm from "components/public/OrderForm";
 import {getBookDetailByUrl} from "api/productApi";
 import {Helmet} from "react-helmet";
 
+import {EmailShareButton, EmailIcon, FacebookShareButton, FacebookIcon, TwitterShareButton, TwitterIcon} from "react-share";
 const classNames = require("classnames");
 
 export default function BookDetailPage(props: any) {
@@ -29,6 +30,7 @@ export default function BookDetailPage(props: any) {
 
 	const user = useSelector((state: any) => state.user);
 	const dispatch = useDispatch();
+	const url = window.location.href;
 
 	useEffect(() => {
 		if (book?.comments.length > 0) {
@@ -172,6 +174,20 @@ export default function BookDetailPage(props: any) {
 										</button>
 									</div>
 								</div>
+							</div>
+						</div>
+						<div>
+							<h3 className="font-medium">Chia sẻ</h3>
+							<div className="space-x-2">
+								<FacebookShareButton url={url} quote={book.title}>
+									<FacebookIcon size={32} round={true} />
+								</FacebookShareButton>
+								<TwitterShareButton url={url} title={book.title}>
+									<TwitterIcon size={32} round={true} />
+								</TwitterShareButton>
+								<EmailShareButton url={url}>
+									<EmailIcon size={32} round={true} />
+								</EmailShareButton>
 							</div>
 						</div>
 						<div className="p-4 bg-gray-100 rounded-lg my-10">

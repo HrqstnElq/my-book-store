@@ -19,6 +19,9 @@ export default function LoginForm() {
 
 	if (userState.current.role === "user") {
 		var cart = JSON.parse(Decrypt(localStorage.getItem("cart") || "") || "[]");
+		console.log(cart);
+
+		alert("adad");
 		if (cart.length > 0) {
 			var listCart: Cart[] = [];
 			cart.forEach((book: any) => {
