@@ -63,7 +63,7 @@ export default function BookDetailPage(props: any) {
 			setOrderForm(<OrderForm books={[{bookId: book.id, quantity: quantity}]} setMode={setMode} />);
 			setMode("ORDER");
 		} else {
-			setMessage(<Message content="Vui lòng đăng nhập đã 😉" button="Login" color="green" setMode={setMode} />);
+			setMessage(<Message content="Vui lòng đăng nhập trước khi mua hàng" button="Login" color="green" setMode={setMode} />);
 			setMode("MESSAGE");
 		}
 	};
@@ -120,7 +120,8 @@ export default function BookDetailPage(props: any) {
 									</div>
 									<div className="space-x-2">
 										<span className="font-bold">Giá:</span>
-										<span className="text-red-700 text-xl font-semibold flex-1">{VND(book.price)}</span>
+										<span className="text-red-700 text-xl font-semibold flex-1">{VND(book.price - book.sale * book.price)}</span>
+										<span className="text-gray-400 line-through flex-1">{VND(book.price)}</span>
 									</div>
 								</div>
 								<div className="space-y-2">
