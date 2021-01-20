@@ -55,7 +55,7 @@ export default function BookDetailPage(props: any) {
 	}, [props.match.params.url, mode]);
 
 	useEffect(() => {
-		if (mode === "Login") window.location.href = `/login?return=public/book/${book.url}`;
+		if (mode === "Login") window.location.href = `/login?return=book-store/book/${book.url}`;
 	});
 
 	const buyClickHandler = () => {
