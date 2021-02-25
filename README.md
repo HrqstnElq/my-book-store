@@ -1,6 +1,6 @@
 ###### Reponsitories BackEnd : https://github.com/huutri220820/NT208
 
-###### Reponsitories FrontEnd : https://github.com/HrqstnElq/my-book-store
+###### Reponsitories FrontEnd : https://github.com/VTV24/my-book-store
 
 ### A. Giới thiệu:
 
